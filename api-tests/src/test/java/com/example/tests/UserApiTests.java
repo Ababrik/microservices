@@ -6,10 +6,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.example.services.UserApiService;
+import static com.example.conditions.Conditions.*;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.isEmptyString;
+import com.example.assertions.AssertableResponse;
+
+
 
 public class UserApiTests {
 
@@ -30,14 +31,9 @@ public class UserApiTests {
                 .setEmail("test@gmail.com");
 
 
-//        RestAssured
-//                .assertThat()
-//                .statusCode(200)
-//                .body("id", not(isEmptyString()));
         userApiService.registerUser(userPayload)
-                .assertThat()
-                .statusCode(200)
-                .body("id", not(isEmptyString()));
+                .shouldHave(statusCode(200));
+               // .body("id", not(isEmptyString()));
     }
 
     @Test
@@ -47,8 +43,7 @@ public class UserApiTests {
                 .setEmail("");
 
         userApiService.registerUser(userPayload)
-                .assertThat()
-                .statusCode(400);
+                .shouldHave(statusCode(400));
     }
 
 //    @Test
