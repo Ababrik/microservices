@@ -1,6 +1,7 @@
 package com.example.conditions;
 
 
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,8 @@ public class StatusCodeCondition implements Condition {
     private final Integer expectedStatusCode;
 
     @Override
-    public void check(ValidatableResponse response) {
-        response.assertThat().statusCode(expectedStatusCode);
+    public void check(Response response) {
+        response.then().assertThat().statusCode(expectedStatusCode);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.example.conditions;
 
-import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 
 public interface Condition {
 
-    void check(ValidatableResponse response);
+    void check(Response response);
 
 }

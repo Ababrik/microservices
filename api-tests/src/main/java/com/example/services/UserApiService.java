@@ -17,7 +17,6 @@ public class UserApiService extends ApiService {
         return new AssertableResponse(setUp()
                 .body(userPayload)
                 .when()
-                .post("register")
-                .then());
+                .post("register"));
     }
 }
