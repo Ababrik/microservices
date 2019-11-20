@@ -19,4 +19,25 @@ public class UserApiService extends ApiService {
                 .when()
                 .post("register"));
     }
+
+    @Step
+    public AssertableResponse deletedUser(String customerId){
+        return new AssertableResponse(setUp()
+                .when()
+                .delete("customers/" + customerId));
+    }
+
+    @Step
+    public AssertableResponse getUserById(String customerId){
+        return new AssertableResponse(setUp()
+                .when()
+                .get("customers/" + customerId));
+    }
+
+    @Step
+    public AssertableResponse getAllUsers(){
+        return new AssertableResponse(setUp()
+                .when()
+                .get("customers/"));
+    }
 }

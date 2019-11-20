@@ -17,6 +17,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.14.0'
 }
 
 test {

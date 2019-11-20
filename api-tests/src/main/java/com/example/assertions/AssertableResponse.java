@@ -29,4 +29,8 @@ public class AssertableResponse {
         return response.jsonPath().getObject(jsonPath, String.class);
     }
 
+    public <T> T asPojo(Class<T> tClass){
+        return response.as(tClass);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.tests;
 
+import com.example.responses.UsersListResponse;
 import io.restassured.RestAssured;
 import com.example.model.UserPayload;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -39,7 +40,7 @@ public class UserApiTests {
                 .shouldHave(bodyField("id", not(isEmptyString())))
                 .shouldHave(bodyField(containsString("id")))
                 .getValue("id", String.class);
-
+UsersListResponse users = userApiService.getAllUsers().asPojo(UsersListResponse.class);
 
     }
 
@@ -52,6 +53,18 @@ public class UserApiTests {
         userApiService.registerUser(userPayload)
                 .shouldHave(statusCode(400))
                 .shouldHave(bodyField(isEmptyOrNullString()));
+    }
+
+    @Test
+    void testCanDeleteCustomer(){
+        userApiService.deletedUser("57a98d98e4b00679b4a830b5")
+         .shouldHave(statusCode(200));
+    }
+
+    @Test
+    void testCannotDeleteNonexistentCustomer(){
+        userApiService.deletedUser("xxx")
+                .shouldHave(statusCode(200));
     }
 
 //    @Test
