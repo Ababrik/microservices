@@ -1,11 +1,14 @@
 package com.example.assertions;
 
 import com.example.conditions.Condition;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
 
 
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class AssertableResponse {
 
     @Step("api response should have {condition}")
     public AssertableResponse shouldHave(Condition condition) {
-        log.info("\nAbout to check condition " + condition);
+        //log.info("\nAbout to check condition " + condition);
         condition.check(response);
         return this;
     }
@@ -30,7 +33,13 @@ public class AssertableResponse {
     }
 
     public <T> T asPojo(Class<T> tClass){
-        return response.as(tClass);
+        String inputStream = response.getBody().asString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(inputStream, tClass);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

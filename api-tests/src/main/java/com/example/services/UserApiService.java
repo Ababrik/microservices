@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserApiService extends ApiService {
     @Step
     public AssertableResponse registerUser(UserPayload userPayload) {
-        log.info("\nAbout to create new user " + userPayload);
+        //log.info("\nAbout to create new user " + userPayload);
         return new AssertableResponse(setUp()
                 .body(userPayload)
                 .when()
