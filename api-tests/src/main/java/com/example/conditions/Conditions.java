@@ -11,14 +11,18 @@ public class Conditions {
         return new StatusCodeCondition(code);
     }
 
+
     public static BodyFieldCondition bodyField(String jsonPath, Matcher matcher) {
         return new BodyFieldCondition(jsonPath, matcher);
     }
+
 
     public static BodyFieldCondition bodyField(Matcher matcher) {
         return new BodyFieldCondition(matcher);
     }
 
-
+//    public static ContentTypeCondition(String contentType) {
+//        return new ContentTypeCondition();
+//    }
 }
 

@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class UserApiService extends ApiService {
-    @Step
+    //@Step
     public AssertableResponse registerUser(UserPayload userPayload) {
         //log.info("\nAbout to create new user " + userPayload);
         return new AssertableResponse(setUp()
@@ -20,21 +20,21 @@ public class UserApiService extends ApiService {
                 .post("register"));
     }
 
-    @Step
+    //@Step
     public AssertableResponse deletedUser(String customerId){
         return new AssertableResponse(setUp()
                 .when()
                 .delete("customers/" + customerId));
     }
 
-    @Step
+    //@Step
     public AssertableResponse getUserById(String customerId){
         return new AssertableResponse(setUp()
                 .when()
                 .get("customers/" + customerId));
     }
 
-    @Step
+   // @Step
     public AssertableResponse getAllUsers(){
         return new AssertableResponse(setUp()
                 .when()

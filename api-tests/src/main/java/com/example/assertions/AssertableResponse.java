@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class AssertableResponse {
 
     private final Response response;
 
-    @Step("api response should have {condition}")
+   // @Step("api response should have {condition}")
     public AssertableResponse shouldHave(Condition condition) {
         //log.info("\nAbout to check condition " + condition);
         condition.check(response);
@@ -26,6 +27,10 @@ public class AssertableResponse {
 
     public <T> T getValue(String jsonPath, Class<T> tClass) {
         return response.jsonPath().getObject(jsonPath, tClass);
+    }
+
+    public <T> List<T> getValues(String jsonPath, Class<T> tClass){
+        return (List<T>) response.jsonPath().getObject(jsonPath, tClass);
     }
 
     public String getValue(String jsonPath) {
