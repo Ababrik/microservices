@@ -40,4 +40,10 @@ public class UserApiService extends ApiService {
                 .when()
                 .get("customers/"));
     }
+
+    public AssertableResponse login(){
+        return new AssertableResponse(setUp()
+                .when()
+                .get(" /login"));
+    }
 }

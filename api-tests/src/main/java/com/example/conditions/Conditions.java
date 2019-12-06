@@ -21,8 +21,8 @@ public class Conditions {
         return new BodyFieldCondition(matcher);
     }
 
-//    public static ContentTypeCondition(String contentType) {
-//        return new ContentTypeCondition();
-//    }
+    public static ContentTypeCondition contentType(String contentType) {
+        return new ContentTypeCondition(contentType);
+    }
 }
 

@@ -31,6 +31,12 @@ public class UserApiTests extends BaseTest {
     }
 
     @Test
+    void testCannotDeleteNonexistentCustomer() {
+        userApiService.deletedUser("xxx")
+                .shouldHave(statusCode(200));
+    }
+
+    @Test
     void testCanRegisterUser() {
         String userName = (faker.name().username());
         UserPayload userPayload = new UserPayload()
@@ -38,13 +44,15 @@ public class UserApiTests extends BaseTest {
                 .setPassword(faker.numerify("a#b##b#a"))
                 .setEmail(userName + "@example.com");
 
-        UsersListResponse u = new UsersListResponse();
         String createdUserId = userApiService.registerUser(userPayload)
                 .shouldHave(statusCode(200))
                 .shouldHave(bodyField("id", not(isEmptyString())))
+                .shouldHave(contentType("application/json; charset=utf-8"))
                 .getValue("id", String.class);
-        System.out.println("created UserId: " + createdUserId);
-        String returnedUserId = userApiService.getUserById(createdUserId).getValue("id");
+        userApiService.getUserById(createdUserId)
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json; charset=utf-8"))
+                .shouldHave(bodyField("status", is(true)));
     }
 
     @Test
@@ -52,35 +60,49 @@ public class UserApiTests extends BaseTest {
         UserPayload userPayload = new UserPayload()
                 .setPassword("")
                 .setEmail("");
-
         userApiService.registerUser(userPayload)
                 .shouldHave(statusCode(400))
+                .shouldHave(contentType("application/json; charset=utf-8"))
                 .shouldHave(bodyField(isEmptyOrNullString()));
     }
 
     @Test
     void testCanDeleteCustomer() {
-        System.out.println(UsersListResponse.class);
-        //UsersListResponse.class.
-//        userApiService.deletedUser("57a98d98e4b00679b4a830b5")
-//         .shouldHave(statusCode(200));
+        String userName = (faker.name().username());
+        UserPayload userPayload = new UserPayload()
+                .setUsername(userName)
+                .setPassword(faker.numerify("a#b##b#a"))
+                .setEmail(userName + "@example.com");
+
+        String createdUserId = userApiService.registerUser(userPayload).getValue("id");
+        userApiService.deletedUser(createdUserId)
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json;charset=UTF-8"))
+                .shouldHave(bodyField("status", is(true)));
     }
 
-    @Test
-    void testCannotDeleteNonexistentCustomer() {
-        userApiService.deletedUser("xxx")
-                .shouldHave(statusCode(200));
-    }
 
     @Test
     void testCanGetCustomersList() {
         userApiService.getAllUsers()
-                .shouldHave(statusCode(200));
-
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json;charset=UTF-8"));
 
         UsersListResponse users = userApiService.getAllUsers().asPojo(UsersListResponse.class);
         assertThat(users.getEmbedded().getCustomer()).hasSizeGreaterThanOrEqualTo(1);
+    }
 
+    @Test
+    void testRegisteredUserCanLogin(){
+        String userName = (faker.name().username());
+        String passw = (faker.numerify("a#b##b#a"));
+        UserPayload userPayload = new UserPayload()
+                .setUsername(userName)
+                .setPassword(passw)
+                .setEmail(userName + "@example.com");
+        userApiService.registerUser(userPayload);
+        userApiService.login()
+                .shouldHave(statusCode(200));
 
     }
 
