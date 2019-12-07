@@ -46,4 +46,10 @@ public class UserApiService extends ApiService {
                 .when()
                 .get(" /login"));
     }
+
+    public AssertableResponse getCustomerCard(String customerId){
+        return new AssertableResponse(setUp()
+                .when()
+                .get("/customers/" + customerId + "/cards"));
+    }
 }

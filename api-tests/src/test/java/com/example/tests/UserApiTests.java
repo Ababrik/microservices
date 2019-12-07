@@ -2,6 +2,7 @@ package com.example.tests;
 
 import com.example.ProjectConfig;
 import com.example.assertions.AssertableResponse;
+import com.example.responses.Cards;
 import com.example.responses.UsersListResponse;
 import io.restassured.RestAssured;
 import com.example.model.UserPayload;
@@ -93,7 +94,7 @@ public class UserApiTests extends BaseTest {
     }
 
     @Test
-    void testRegisteredUserCanLogin(){
+    void testRegisteredUserCanLogin() {
         String userName = (faker.name().username());
         String passw = (faker.numerify("a#b##b#a"));
         UserPayload userPayload = new UserPayload()
@@ -103,7 +104,15 @@ public class UserApiTests extends BaseTest {
         userApiService.registerUser(userPayload);
         userApiService.login()
                 .shouldHave(statusCode(200));
+    }
 
+    @Test
+    void testCanGetCustomerCard() {
+        AssertableResponse cards = userApiService.getCustomerCard("57a98d98e4b00679b4a830af")
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json;charset=UTF-8"));
+        Cards card = cards.asPojo(Cards.class);
+        assertThat(!card.getHref().isEmpty());
     }
 
 }

@@ -15,32 +15,32 @@ import java.util.stream.Stream;
 @Aspect
 @Slf4j
 public class LoggableAspect {
-//
-//    @Pointcut("execution(* com.example.services.ApiService+.*(..))")
-//    public void anyMethodInService() {
-//
-//    }
-//
-//    @Before("anyMethodInService()")
-//    public void step(JoinPoint joinPoint) {
-//        final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-//        final String name = joinPoint.getArgs().length > 0
-//                ? String.format("%s (%s)", methodSignature.getName(), arrayToString(joinPoint.getArgs()))
-//                : methodSignature.getName() + "()";
-//        log.info(name);
-//
-//    }
-//
-//    private static String arrayToString(final Object... array) {
-//        return Stream.of(array)
-//                .map(object -> {
-//                    if (object.getClass().isArray()) {
-//                        return Objects.toString((Object[]) object);
-//                    }
-//                    return Objects.toString(object);
-//                })
-//                  .collect(Collectors.joining(", "));
-//
-//    }
-//
+
+    @Pointcut("execution(* com.example.services.ApiService+.*(..))")
+    public void anyMethodInService() {
+
+    }
+
+    @Before("anyMethodInService()")
+    public void step(JoinPoint joinPoint) {
+        final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        final String name = joinPoint.getArgs().length > 0
+                ? String.format("%s (%s)", methodSignature.getName(), arrayToString(joinPoint.getArgs()))
+                : methodSignature.getName() + "()";
+        log.info(name);
+
+    }
+
+    private static String arrayToString(final Object... array) {
+        return Stream.of(array)
+                .map(object -> {
+                    if (object.getClass().isArray()) {
+                        return Objects.toString((Object[]) object);
+                    }
+                    return Objects.toString(object);
+                })
+                  .collect(Collectors.joining(", "));
+
+    }
+
 }
