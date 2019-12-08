@@ -7,8 +7,6 @@ import com.example.responses.UsersListResponse;
 import io.restassured.RestAssured;
 import com.example.model.UserPayload;
 import org.aeonbits.owner.ConfigFactory;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.example.services.UserApiService;

@@ -1,26 +1,28 @@
-//package com.socks.ui.tests;
-//
-//import com.codeborne.selenide.Configuration;
-//import com.codeborne.selenide.Selenide;
-//import org.testng.annotations.Test;
-//import org.testng.annotations.BeforeClass;
-//
-//public class TestLogin {
-//
-//
-//    @BeforeClass
-//    public void setUp(){
-//        Configuration.browser = "chrome";
-//    }
-//    @Test
-//    public void userCanLoginWithValidCredentials(){
-//        Selenide.open("http://159.65.243.118/");
-////        Selenide.open("http://159.65.243.118/");
-//        Selenide.$("#login > a").click();
-//        Selenide.$("#username-modal").sendKeys("Eve_Berger");
-//        Selenide.$("#password-modal").sendKeys("eve");
-////        Selenide.$("#login-modal p button").click();
-//        Selenide.open("http://159.65.243.118/");
-//
-//    }
-//}
+package com.socks.ui.tests;
+
+import com.codeborne.selenide.Configuration;
+
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
+
+import com.example.ProjectConfig;
+import com.example.model.UserPayload;
+import com.example.services.UserApiService;
+import com.socks.ui.LoggedUserPage;
+import com.socks.ui.MainPage;
+import org.testng.annotations.Test;
+
+
+public class TestLogin extends BaseUiTest {
+
+
+    @Test
+    public void userCanLoginWithValidCredentials() {
+//        given
+        UserPayload userPayload = createNewUser();
+//        when
+        MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
+//        then
+        at(LoggedUserPage.class).logoutButton.shouldHave(text("Logout"));
+    }
+}
