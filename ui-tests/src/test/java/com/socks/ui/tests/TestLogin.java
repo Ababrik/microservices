@@ -1,13 +1,9 @@
 package com.socks.ui.tests;
 
-import com.codeborne.selenide.Configuration;
-
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
 
-import com.example.ProjectConfig;
+import com.codeborne.selenide.Condition;
 import com.example.model.UserPayload;
-import com.example.services.UserApiService;
 import com.socks.ui.LoggedUserPage;
 import com.socks.ui.MainPage;
 import org.testng.annotations.Test;
@@ -23,6 +19,40 @@ public class TestLogin extends BaseUiTest {
 //        when
         MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
 //        then
-        at(LoggedUserPage.class).logoutButton.shouldHave(text("Logout"));
+        at(LoggedUserPage.class).gerLogoutButton().shouldHave(text("Logout"));
     }
+
+
+    @Test
+    public void userCanLogout() {
+        //given
+        UserPayload userPayload = createNewUser();
+        MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
+        //when
+        at(LoggedUserPage.class).logOut();
+        //then
+        at(MainPage.class).getLoginLink().shouldHave(Condition.text("Login"));
+    }
+
+    @Test
+    public void userCannotLoginWithInvalidUsername() {
+        // given
+        UserPayload userPayload = createNewUser();
+        // when
+        MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword());
+        // then
+        at(MainPage.class).getAlertInvalidLoginCredentials().shouldHave(Condition.text("Invalid login credentials."));
+    }
+
+    @Test
+    public void userCannotLoginWithInvalidPassword() {
+        // given
+        UserPayload userPayload = createNewUser();
+        // when
+        MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword() + "1");
+        //then
+        at(MainPage.class).getAlertInvalidLoginCredentials().shouldHave(Condition.text("Invalid login credentials."));
+    }
+
+
 }

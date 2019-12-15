@@ -2,6 +2,7 @@ package com.socks.ui.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideDriver;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.example.ProjectConfig;
 import com.example.model.UserPayload;
@@ -10,7 +11,7 @@ import com.github.javafaker.Faker;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
 
 public class BaseUiTest  {
     protected final Faker faker = new Faker();
@@ -23,6 +24,14 @@ public class BaseUiTest  {
         Configuration.baseUrl = "http://159.65.243.118";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
+
+    @AfterTest
+    public void cleanCookies(){
+        Selenide.clearBrowserCookies();
+        Selenide.clearBrowserLocalStorage();
+        Selenide.refresh();
+    }
+
 
     protected UserPayload createNewUser() {
         String userName = (faker.name().username());
