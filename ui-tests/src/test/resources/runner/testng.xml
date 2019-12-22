@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="com.socks.ui.tests" parallel="classes" thread-count="5">
+
+    <!-- Suite -->
+
+   <test name="Login test">
+       <classes>
+           <class name="com.socks.ui.tests.tests.TestLogin"/>
+       </classes>
+   </test>
+    <test name="Register user test">
+        <classes>
+            <class name="com.socks.ui.tests.tests.TestRegisterUser"/>
+        </classes>
+    </test>
+</suite>

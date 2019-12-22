@@ -15,4 +15,8 @@ public class LoggedUserPage {
     public void logOut() {
         $("#logout>a").shouldBe(Condition.visible).click();
     }
+
+    public SelenideElement getLoggedUserLink(String firstname, String lastname){
+        return $x(String.format("//a[contains(text(), 'Logged in as %s %s')]", firstname, lastname));
+    }
 }

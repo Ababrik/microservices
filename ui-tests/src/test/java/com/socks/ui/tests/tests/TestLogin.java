@@ -1,4 +1,4 @@
-package com.socks.ui.tests;
+package com.socks.ui.tests.tests;
 
 import static com.codeborne.selenide.Condition.*;
 
@@ -6,6 +6,7 @@ import com.codeborne.selenide.Condition;
 import com.example.model.UserPayload;
 import com.socks.ui.LoggedUserPage;
 import com.socks.ui.MainPage;
+import com.socks.ui.tests.tests.BaseUiTest;
 import org.testng.annotations.Test;
 
 
@@ -14,6 +15,7 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCanLoginWithValidCredentials() {
+        System.out.println("TestLogin --- " + Thread.currentThread().getId());
 //        given
         UserPayload userPayload = createNewUser();
 //        when
@@ -25,6 +27,7 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCanLogout() {
+        System.out.println("TestLogin --- " + Thread.currentThread().getId());
         //given
         UserPayload userPayload = createNewUser();
         MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
@@ -36,6 +39,7 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCannotLoginWithInvalidUsername() {
+        System.out.println("TestLogin --- " + Thread.currentThread().getId());
         // given
         UserPayload userPayload = createNewUser();
         // when
@@ -46,6 +50,7 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCannotLoginWithInvalidPassword() {
+        System.out.println("TestLogin --- " + Thread.currentThread().getId());
         // given
         UserPayload userPayload = createNewUser();
         // when
