@@ -2,8 +2,8 @@ package com.example.tests;
 
 import com.example.ProjectConfig;
 import com.example.assertions.AssertableResponse;
-import com.example.responses.Cards;
-import com.example.responses.UsersListResponse;
+import com.example.model.AddressPayload;
+import com.example.responses.*;
 import io.restassured.RestAssured;
 import com.example.model.UserPayload;
 import org.aeonbits.owner.ConfigFactory;
@@ -11,12 +11,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.example.services.UserApiService;
 
+import java.util.List;
+
 import static com.example.conditions.Conditions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasValue;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.isEmptyString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class UserApiTests extends BaseTest {
@@ -67,13 +70,7 @@ public class UserApiTests extends BaseTest {
 
     @Test
     void testCanDeleteCustomer() {
-        String userName = (faker.name().username());
-        UserPayload userPayload = new UserPayload()
-                .setUsername(userName)
-                .setPassword(faker.numerify("a#b##b#a"))
-                .setEmail(userName + "@example.com");
-
-        String createdUserId = userApiService.registerUser(userPayload).getValue("id");
+        String createdUserId = createNewUser().getValue("id");
         userApiService.deletedUser(createdUserId)
                 .shouldHave(statusCode(200))
                 .shouldHave(contentType("application/json;charset=UTF-8"))
@@ -93,13 +90,7 @@ public class UserApiTests extends BaseTest {
 
     @Test
     void testRegisteredUserCanLogin() {
-        String userName = (faker.name().username());
-        String passw = (faker.numerify("a#b##b#a"));
-        UserPayload userPayload = new UserPayload()
-                .setUsername(userName)
-                .setPassword(passw)
-                .setEmail(userName + "@example.com");
-        userApiService.registerUser(userPayload);
+        createNewUser();
         userApiService.login()
                 .shouldHave(statusCode(200));
     }
@@ -112,5 +103,35 @@ public class UserApiTests extends BaseTest {
         Cards card = cards.asPojo(Cards.class);
         assertThat(!card.getHref().isEmpty());
     }
+
+    @Test
+    void canAddNewAddress() {
+        createNewUser();
+        String createdUserId = userApiService.registerUser(userPayload).getValue("id", String.class);
+        AddressPayload addressPayload = new AddressPayload()
+                .setStreet(faker.address().streetName())
+                .setNumber(faker.address().buildingNumber())
+                .setCountry(faker.address().country())
+                .setCity(faker.address().city())
+                .setPostcode(faker.address().zipCode())
+                .setUserID(createdUserId);
+
+        userApiService.createCustomerAddress(addressPayload)
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json;charset=UTF-8"))
+                .shouldHave(bodyField("href", not(isEmptyString())));
+    }
+
+    @Test
+    void canGetCustomerAddress() {
+        createNewUser();
+        AssertableResponse assertableResponse = addCustomerAddress();
+
+        UserAddressesResponse userAddressesResponse = userApiService.getCustomerAddress().asPojo(UserAddressesResponse.class);
+        List<AddressItem> addressItems = userAddressesResponse.getEmbedded().getAddress();
+        assertEquals(7, addressItems.size());
+
+}
+
 
 }

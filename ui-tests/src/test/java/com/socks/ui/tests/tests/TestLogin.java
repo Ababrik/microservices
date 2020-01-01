@@ -1,12 +1,10 @@
 package com.socks.ui.tests.tests;
 
 import static com.codeborne.selenide.Condition.*;
-
 import com.codeborne.selenide.Condition;
 import com.example.model.UserPayload;
 import com.socks.ui.LoggedUserPage;
 import com.socks.ui.MainPage;
-import com.socks.ui.tests.tests.BaseUiTest;
 import org.testng.annotations.Test;
 
 

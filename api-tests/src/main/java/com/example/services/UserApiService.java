@@ -1,6 +1,7 @@
 package com.example.services;
 
 import com.example.assertions.AssertableResponse;
+import com.example.model.AddressPayload;
 import com.example.model.UserPayload;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
@@ -21,35 +22,51 @@ public class UserApiService extends ApiService {
     }
 
     //@Step
-    public AssertableResponse deletedUser(String customerId){
+    public AssertableResponse deletedUser(String customerId) {
         return new AssertableResponse(setUp()
                 .when()
                 .delete("customers/" + customerId));
     }
 
     //@Step
-    public AssertableResponse getUserById(String customerId){
+    public AssertableResponse getUserById(String customerId) {
         return new AssertableResponse(setUp()
                 .when()
                 .get("customers/" + customerId));
     }
 
-   // @Step
-    public AssertableResponse getAllUsers(){
+    // @Step
+    public AssertableResponse getAllUsers() {
         return new AssertableResponse(setUp()
                 .when()
                 .get("customers/"));
     }
 
-    public AssertableResponse login(){
+    public AssertableResponse login() {
         return new AssertableResponse(setUp()
                 .when()
                 .get(" /login"));
     }
 
-    public AssertableResponse getCustomerCard(String customerId){
+    public AssertableResponse getCustomerCard(String customerId) {
         return new AssertableResponse(setUp()
                 .when()
                 .get("/customers/" + customerId + "/cards"));
     }
+
+    public AssertableResponse createCustomerAddress(AddressPayload addressPayload) {
+        return new AssertableResponse((setUp()
+                .body(addressPayload)
+                .when()
+                .post("addresses")));
+    }
+
+    public AssertableResponse getCustomerAddress() {
+        return new AssertableResponse((setUp()
+                .when()
+                .get("/addresses")));
+    }
+
+
+
 }
