@@ -28,7 +28,7 @@ public class BaseUiTest {
 //        Configuration.browser = "com.socks.ui.tests.utils.SelenoidWebDriverProvider";
 //        Configuration.driverManagerEnabled = false;
 
-        Configuration.baseUrl = "http://159.65.243.118";
+        Configuration.baseUrl = "http://165.227.86.6";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
 
