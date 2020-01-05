@@ -1,63 +1,84 @@
 package com.example.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Links{
+public class Links {
 
-	@JsonProperty("addresses")
-	private Addresses addresses;
+    @JsonProperty("addresses")
+    private Addresses addresses;
 
-	@JsonProperty("cards")
-	private Cards cards;
+    @JsonProperty("address")
+    private Addresses address;
 
-	@JsonProperty("self")
-	private Self self;
+    @JsonProperty("cards")
+    private Cards cards;
 
-	@JsonProperty("customer")
-	private Customer customer;
+    @JsonProperty("self")
+    private Self self;
 
-	public void setAddresses(Addresses addresses){
-		this.addresses = addresses;
-	}
+    @JsonProperty("customer")
+    private Customer customer;
 
-	public Addresses getAddresses(){
-		return addresses;
-	}
+    public void setAddresses(Addresses addresses) {
+        this.addresses = addresses;
+    }
 
-	public void setCards(Cards cards){
-		this.cards = cards;
-	}
+    public Addresses getAddresses() {
+        return addresses;
+    }
 
-	public Cards getCards(){
-		return cards;
-	}
+    public void setAddress(Addresses addresses) {
+        this.addresses = addresses;
+    }
 
-	public void setSelf(Self self){
-		this.self = self;
-	}
+    public Addresses getAddress() {
+        return addresses;
+    }
 
-	public Self getSelf(){
-		return self;
-	}
 
-	public void setCustomer(Customer customer){
-		this.customer = customer;
-	}
+    public void setCards(Cards cards) {
+        this.cards = cards;
+    }
 
-	public Customer getCustomer(){
-		return customer;
-	}
+    public Cards getCards() {
+        return cards;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"Links{" + 
-			"addresses = '" + addresses + '\'' + 
-			",cards = '" + cards + '\'' + 
-			",self = '" + self + '\'' + 
-			",customer = '" + customer + '\'' + 
-			"}";
-		}
+    public void setSelf(Self self) {
+        this.self = self;
+    }
+
+    public Self getSelf() {
+        return self;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public String linksCustomertoString() {
+        return
+                "Links{" +
+                        "addresses = '" + addresses + '\'' +
+                        ",cards = '" + cards + '\'' +
+                        ",self = '" + self + '\'' +
+                        ",customer = '" + customer + '\'' +
+                        "}";
+    }
+
+    public String linksAddressToString() {
+        return
+                "Links{" +
+                        ",self = '" + self + '\'' +
+                        "addresses = '" + addresses + '\'' +
+                        "}";
+    }
+
 }

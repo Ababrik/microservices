@@ -28,15 +28,15 @@ public class BaseTest {
         return userApiService.registerUser(userPayload);
     }
 
-    AssertableResponse addCustomerAddress(){
-        String createdUserId = createNewUser().getValue("id");
+    AssertableResponse addCustomerAddress(String userId){
+
         AddressPayload addressPayload = new AddressPayload()
                 .setStreet(faker.address().streetName())
                 .setNumber(faker.address().buildingNumber())
                 .setCountry(faker.address().country())
                 .setCity(faker.address().city())
                 .setPostcode(faker.address().zipCode())
-                .setUserID(createdUserId);
+                .setUserID(userId);
                 return  userApiService.createCustomerAddress(addressPayload);
     }
 

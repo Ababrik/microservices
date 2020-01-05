@@ -16,7 +16,6 @@ import java.util.List;
 import static com.example.conditions.Conditions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.Matchers.hasValue;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -106,8 +105,7 @@ public class UserApiTests extends BaseTest {
 
     @Test
     void canAddNewAddress() {
-        createNewUser();
-        String createdUserId = userApiService.registerUser(userPayload).getValue("id", String.class);
+        String createdUserId = createNewUser().getValue("id", String.class);
         AddressPayload addressPayload = new AddressPayload()
                 .setStreet(faker.address().streetName())
                 .setNumber(faker.address().buildingNumber())
@@ -124,10 +122,10 @@ public class UserApiTests extends BaseTest {
 
     @Test
     void canGetCustomerAddress() {
-        createNewUser();
-        AssertableResponse assertableResponse = addCustomerAddress();
+        String userId = createNewUser().getValue("id");
+        AssertableResponse assertableResponse = addCustomerAddress(userId);
 
-        UserAddressesResponse userAddressesResponse = userApiService.getCustomerAddress().asPojo(UserAddressesResponse.class);
+        UserAddressesResponse userAddressesResponse = userApiService.getAllAddress().asPojo(UserAddressesResponse.class);
         List<AddressItem> addressItems = userAddressesResponse.getEmbedded().getAddress();
         assertEquals(7, addressItems.size());
 

@@ -58,10 +58,10 @@ public class UserApiService extends ApiService {
         return new AssertableResponse((setUp()
                 .body(addressPayload)
                 .when()
-                .post("addresses")));
+                .post("/addresses")));
     }
 
-    public AssertableResponse getCustomerAddress() {
+    public AssertableResponse getAllAddress() {
         return new AssertableResponse((setUp()
                 .when()
                 .get("/addresses")));
