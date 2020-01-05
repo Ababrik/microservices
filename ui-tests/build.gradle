@@ -1,0 +1,28 @@
+ext {
+    testNgVersion = "6.13"
+    selenideVersion = "4.14.2"
+
+}
+
+dependencies {
+    compile project(":api-tests")
+    compile "com.codeborne:selenide:$selenideVersion"
+    compile group: 'io.qameta.allure', name: 'allure-selenide', version: '2.13.0'
+    testCompile "org.testng:testng:$testNgVersion"
+}
+
+test {
+    useTestNG()
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        exceptionFormat = 'full'
+    }
+    test.outputs.upToDateWhen { false }
+}
+
+
+allure {
+    version = '2.5.0'
+    aspectjweaver = true
+    autoconfigure = true
+}
