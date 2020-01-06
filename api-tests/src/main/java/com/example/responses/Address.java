@@ -1,10 +1,13 @@
 package com.example.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.annotation.Generated;
 
+
+@Generated("com.robohorse.robopojogenerator")
 public class Address{
 
-	@JsonProperty("_href")
+	@JsonProperty("href")
 	private String href;
 
 	public void setHref(String href){

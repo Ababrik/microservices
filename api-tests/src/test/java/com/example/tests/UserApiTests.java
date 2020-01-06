@@ -33,8 +33,9 @@ public class UserApiTests extends BaseTest {
 
     @Test
     void testCannotDeleteNonexistentCustomer() {
-        userApiService.deletedUser("xxx")
-                .shouldHave(statusCode(200));
+        userApiService.deletedUser("abrakadabra")
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json; charset=utf-8"));
     }
 
     @Test
@@ -87,12 +88,6 @@ public class UserApiTests extends BaseTest {
         assertThat(users.getEmbedded().getCustomer()).hasSizeGreaterThanOrEqualTo(1);
     }
 
-    @Test
-    void testRegisteredUserCanLogin() {
-        createNewUser();
-        userApiService.login()
-                .shouldHave(statusCode(200));
-    }
 
     @Test
     void testCanGetCustomerCard() {
@@ -117,19 +112,40 @@ public class UserApiTests extends BaseTest {
         userApiService.createCustomerAddress(addressPayload)
                 .shouldHave(statusCode(200))
                 .shouldHave(contentType("application/json;charset=UTF-8"))
-                .shouldHave(bodyField("href", not(isEmptyString())));
+                .shouldHave(bodyField("id", not(isEmptyString())));
     }
 
     @Test
-    void canGetCustomerAddress() {
+    void canGetAllAddresses() {
         String userId = createNewUser().getValue("id");
         AssertableResponse assertableResponse = addCustomerAddress(userId);
 
         UserAddressesResponse userAddressesResponse = userApiService.getAllAddress().asPojo(UserAddressesResponse.class);
         List<AddressItem> addressItems = userAddressesResponse.getEmbedded().getAddress();
         assertEquals(7, addressItems.size());
+    }
 
-}
+    @Test
+    void canDeleteAddress() {
+        String userId = createNewUser().getValue("id");
+        String addressId = addCustomerAddress(userId).getValue("id");
+        userApiService.deleteAddress(addressId)
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application/json;charset=UTF-8"))
+                .shouldHave(bodyField("status", is(true)));
+
+    }
+
+    @Test
+    void canGetAddressById() {
+        String userId = createNewUser().getValue("id");
+        String addressId = addCustomerAddress(userId).getValue("id");
+
+        userApiService.getAddressById(addressId)
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType("application"));
+
+    }
 
 
 }

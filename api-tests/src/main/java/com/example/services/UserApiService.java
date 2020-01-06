@@ -3,11 +3,6 @@ package com.example.services;
 import com.example.assertions.AssertableResponse;
 import com.example.model.AddressPayload;
 import com.example.model.UserPayload;
-import io.qameta.allure.Step;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -68,5 +63,17 @@ public class UserApiService extends ApiService {
     }
 
 
+    public AssertableResponse deleteAddress(String id){
+        return new AssertableResponse(setUp()
+        .when()
+        .delete("/addresses/"+id));
+    }
+
+    public AssertableResponse getAddressById(String id){
+        return new AssertableResponse(setUp()
+        .when()
+        .get(" /addresses/"+id));
+
+    }
 
 }
