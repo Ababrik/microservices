@@ -1,4 +1,4 @@
-package com.example.tests.assertions.responses;
+package com.example.assertions.responses;
 
 import com.example.responses.Customer;
 import org.assertj.core.api.AbstractAssert;

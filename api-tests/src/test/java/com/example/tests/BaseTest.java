@@ -9,6 +9,7 @@ import com.example.services.UserApiService;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
+import org.junit.jupiter.api.BeforeAll;
 
 
 public class BaseTest {
@@ -18,12 +19,18 @@ public class BaseTest {
     protected UserApiService userApiService = new UserApiService();
 
 
+    @BeforeAll
+
+    static void setUp() {
+        RestAssured.baseURI = ConfigFactory.create(ProjectConfig.class).apiPath();
+    }
+    
+    
     AssertableResponse createNewUser() {
-        String userName = (faker.name().username());
-        String passw = (faker.numerify("a#b##b#a"));
-        userPayload
+        String userName= faker.name().username();
+             userPayload
                 .setUsername(userName)
-                .setPassword(passw)
+                .setPassword(faker.numerify("a#b##b#a"))
                 .setEmail(userName + "@example.com");
         return userApiService.registerUser(userPayload);
     }

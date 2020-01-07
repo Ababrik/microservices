@@ -14,14 +14,17 @@ import javax.annotation.Generated;
 @Getter
 @Generated("com.robohorse.robopojogenerator")
 public class UserPayload {
+
     @JsonProperty("password")
     private String password;
+
 
     @JsonProperty("email")
     private String email;
 
     @JsonProperty("username")
     private String username;
+
 
 
     @Override
