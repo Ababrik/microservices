@@ -1,5 +1,6 @@
 package com.example.conditions;
 
+import io.restassured.http.ContentType;
 import io.restassured.matcher.ResponseAwareMatcher;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -13,7 +14,7 @@ import org.hamcrest.Matcher;
 @Slf4j
 public class ContentTypeCondition implements Condition {
 
-    private final String expectedContentType;
+    private final ContentType expectedContentType;
 
     @Override
     public void check(Response response) {

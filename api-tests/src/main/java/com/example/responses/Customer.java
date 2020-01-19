@@ -1,27 +1,25 @@
 package com.example.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.annotation.Generated;
 
+
+@Setter
+@Getter
 @Generated("com.robohorse.robopojogenerator")
-public class Customer{
+public class Customer {
 
-	@JsonProperty("href")
-	private String href;
+    @JsonProperty("href")
+    private String href;
 
-	public void setHref(String href){
-		this.href = href;
-	}
-
-	public String getHref(){
-		return href;
-	}
-
-	@Override
- 	public String toString(){
-		return 
-			"Customer{" + 
-			"href = '" + href + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "Customer{" +
+                        "href = '" + href + '\'' +
+                        "}";
+    }
 }

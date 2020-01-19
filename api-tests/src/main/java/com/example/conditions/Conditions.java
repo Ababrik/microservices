@@ -1,5 +1,6 @@
 package com.example.conditions;
 
+import io.restassured.http.ContentType;
 import io.restassured.matcher.ResponseAwareMatcher;
 import lombok.experimental.UtilityClass;
 import org.hamcrest.Matcher;
@@ -21,7 +22,7 @@ public class Conditions {
         return new BodyFieldCondition(matcher);
     }
 
-    public static ContentTypeCondition contentType(String contentType) {
+    public static ContentTypeCondition contentType(ContentType contentType) {
         return new ContentTypeCondition(contentType);
     }
 }

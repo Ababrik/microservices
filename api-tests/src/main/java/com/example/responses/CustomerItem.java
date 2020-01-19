@@ -1,19 +1,16 @@
 package com.example.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.Generated;
 
+
+@Setter
+@Getter
 @Generated("com.robohorse.robopojogenerator")
 public class CustomerItem {
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     @JsonProperty("id")
     private String id;
@@ -30,37 +27,6 @@ public class CustomerItem {
     @JsonProperty("username")
     private String username;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return username;
-    }
 
     @Override
     public String toString() {

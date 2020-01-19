@@ -3,14 +3,16 @@ package com.example.responses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.annotation.Generated;
 
 
+@Accessors(chain = true)
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class AddressItem{
+public class AddressByAddressIdResponse {
 
 	@JsonProperty("number")
 	private String number;
@@ -31,11 +33,10 @@ public class AddressItem{
 	private String postcode;
 
 
-
 	@Override
  	public String toString(){
 		return 
-			"AddressItem{" + 
+			"AddressByAddressIdResponse{" +
 			"number = '" + number + '\'' + 
 			",country = '" + country + '\'' + 
 			",city = '" + city + '\'' + 

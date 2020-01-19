@@ -1,25 +1,28 @@
 package com.example.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.annotation.Generated;
+
 
 
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class Cards{
+public class DeletedAddressResponse {
 
-	@JsonProperty("href")
-	private String href;
+	@JsonProperty
+	private String status;
 
-		@Override
+
+
+	@Override
  	public String toString(){
 		return 
-			"Cards{" + 
-			"href = '" + href + '\'' + 
+			"DeletedAddressResponse{" +
+			"status = '" + status + '\'' + 
 			"}";
 		}
 }

@@ -11,25 +11,18 @@ import javax.annotation.Generated;
 @Getter
 @Generated("com.robohorse.robopojogenerator")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserAddressesResponse{
+public class AddedAddressResponse {
 
-	@JsonProperty("_embedded")
-	private Embedded embedded;
+	@JsonProperty("id")
+	private String id;
 
-	@JsonProperty("_links")
-	private Links links;
-
-	@JsonProperty("page")
-	private Page page;
 
 
 	@Override
  	public String toString(){
 		return 
-			"UserAddressesResponse{" + 
-			"_embedded = '" + embedded + '\'' + 
-			",_links = '" + links + '\'' + 
-			",page = '" + page + '\'' + 
+			"AddedAddressResponse{" +
+			"id = '" + id + '\'' + 
 			"}";
 		}
 }

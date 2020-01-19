@@ -10,15 +10,16 @@ import javax.annotation.Generated;
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class Cards{
+public class Card{
 
 	@JsonProperty("href")
 	private String href;
 
-		@Override
+
+	@Override
  	public String toString(){
 		return 
-			"Cards{" + 
+			"Card{" + 
 			"href = '" + href + '\'' + 
 			"}";
 		}

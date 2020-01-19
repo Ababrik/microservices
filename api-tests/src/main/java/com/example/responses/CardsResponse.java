@@ -6,10 +6,11 @@ import lombok.Setter;
 
 import javax.annotation.Generated;
 
+
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class UsersListResponse {
+public class CardsResponse {
 
     @JsonProperty("_embedded")
     private Embedded embedded;
@@ -20,11 +21,10 @@ public class UsersListResponse {
     @JsonProperty("page")
     private Page page;
 
-
     @Override
     public String toString() {
         return
-                "UsersListResponse{" +
+                "CardsResponse{" +
                         "_embedded = '" + embedded + '\'' +
                         ",_links = '" + links + '\'' +
                         ",page = '" + page + '\'' +
