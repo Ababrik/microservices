@@ -19,6 +19,9 @@ public class Embedded {
     @JsonProperty("address")
     private List<AddressItem> address;
 
+    @JsonProperty("card")
+    private List<CardItem> card;
+
 
     public String embededCustomerToString() {
         return "Embedded{" +
