@@ -25,5 +25,9 @@ public class Conditions {
     public static ContentTypeCondition contentType(ContentType contentType) {
         return new ContentTypeCondition(contentType);
     }
+
+    public static BodyJsonCondition bodyJson(String json) {
+        return new BodyJsonCondition(json);
+    }
 }
 

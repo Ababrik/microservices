@@ -90,25 +90,23 @@ public class UserApiTests extends BaseTest {
         UserPayload generatedUserDetails = generateUserDetails();
         String createdUserId = userApiService.registerUser(generatedUserDetails).getValue("id");
         AssertableResponse userAssertableResponse = userApiService.getUserById(createdUserId)
-                .shouldHave(statusCode(200));
-//                .shouldHave(contentType(ContentType.JSON))
+
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyJson("jsonSchemas/getCustomer_Schema.json"));
+
         UserDetailsResponse userDetailsResponse = userAssertableResponse.asPojo(UserDetailsResponse.class);
-        assertThat("firstname", userDetailsResponse.getFirstName(), not(isEmptyOrNullString()));
-        assertThat("lastname", userDetailsResponse.getLastName(), not(isEmptyOrNullString()));
-        assertThat("username", userDetailsResponse.getLastName(), not(isEmptyOrNullString()));
         assertThat("username", userDetailsResponse.getUsername().equalsIgnoreCase(generatedUserDetails.getUsername()));
-        assertThat("self", userDetailsResponse.getLinks().getSelf().getHref(), not(nullValue()));
-        assertThat("addresses", userDetailsResponse.getLinks().getAddresses().getHref(), not(nullValue()));
-        assertThat("customer", userDetailsResponse.getLinks().getCustomer().getHref(), not(nullValue()));
-        assertThat("cards", userDetailsResponse.getLinks().getCards().getHref(), not(nullValue()));
+
 
     }
 
     @Test
     void testCanGetCustomersList() {
         AssertableResponse usersResponse = userApiService.getAllUsers()
-                .shouldHave(statusCode(200));
+                .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON));
+        .shouldHave(bodyJson("jsonSchemas/getCustomers_Schema.json"));
         UsersListResponse users = usersResponse.asPojo(UsersListResponse.class);
         assertThat(users.getEmbedded().getCustomer(), hasSize(greaterThanOrEqualTo(2)));
     }
@@ -122,7 +120,7 @@ public class UserApiTests extends BaseTest {
                 .setExpires(faker.date().future(1000, TimeUnit.DAYS).toString())
                 .setCcv(faker.numerify("###"))
                 .setUserID(createdUserId);
-       userApiService.createNewCard(cardPayload)
+        userApiService.createNewCard(cardPayload)
                 .shouldHave(statusCode(200))
                 .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyField("id", not(isEmptyString())));
@@ -143,13 +141,9 @@ public class UserApiTests extends BaseTest {
         String createdUserId = userApiService.registerUser(generateUserDetails()).getValue("id");
         userApiService.createNewCard(generateCardDetails(createdUserId));
         AssertableResponse customerCards = userApiService.getCustomerCardByCustomerId(createdUserId)
-                .shouldHave(statusCode(200))
+//                .shouldHave(statusCode(200))
+                .shouldHave(bodyJson("jsonSchemas/getCustomerCards_Schema.json"))
                 .shouldHave(contentType(ContentType.JSON));
-        UserCardsResponse userCardsResponse = customerCards.asPojo(UserCardsResponse.class);
-        assertThat(userCardsResponse.getLongNum(), not(isEmptyString()));
-        assertThat(userCardsResponse.getExpires(), not(isEmptyString()));
-        assertThat(userCardsResponse.getCcv(), not(isEmptyString()));
-        assertThat(userCardsResponse.getLinks(), is(notNullValue()));
     }
 
     @Test
@@ -159,19 +153,20 @@ public class UserApiTests extends BaseTest {
 
         AssertableResponse cardResponse = userApiService.getCardByCardId(createdCardId)
                 .shouldHave(statusCode(200))
+                .shouldHave(bodyJson("jsonSchemas/getCardById_Schema.json"))
                 .shouldHave(contentType(ContentType.JSON));
-        CardByCardIdResponse cardByCardIdResponse = cardResponse.asPojo(CardByCardIdResponse.class);
-        assertThat(cardByCardIdResponse.getLinks().getCards().getHref(), not(isEmptyString()));
+
     }
 
     @Test
     void testCanGetAllCards() {
         String createdUserId = userApiService.registerUser(generateUserDetails()).getValue("id");
         userApiService.createNewCard(generateCardDetails(createdUserId));
-        AssertableResponse cardsResponse = userApiService.getAllCards();
+        AssertableResponse cardsResponse = userApiService.getAllCards()
+                .shouldHave(bodyJson("jsonSchemas/getAllCards_Schema.json"));
 //                .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON));
-        CardsListResponse cardsListResponse= cardsResponse.asPojo(CardsListResponse.class);
+        CardsListResponse cardsListResponse = cardsResponse.asPojo(CardsListResponse.class);
         assertThat("cards quantity", cardsListResponse.getEmbedded().getCard(), hasSize(greaterThanOrEqualTo(1)));
 
 
@@ -202,9 +197,12 @@ public class UserApiTests extends BaseTest {
     void testCanGetAllAddresses() {
         String userId = userApiService.registerUser(generateUserDetails()).getValue("id");
         userApiService.createAddress(generateAddressDetails(userId));
-        UserAddressesResponse userAddressesResponse = userApiService.getAllAddress().asPojo(UserAddressesResponse.class);
-        assertThat(userAddressesResponse.getEmbedded().getAddress(), is(notNullValue()));
-        assertThat(userAddressesResponse.getEmbedded().getAddress(), hasItems());
+        AssertableResponse userAddressesResponse = userApiService.getAllAddress()
+                .shouldHave(statusCode(200))
+//                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyJson("jsonSchemas/getAllAddresses_Schema.json"));
+
+
     }
 
     @Test
@@ -238,8 +236,9 @@ public class UserApiTests extends BaseTest {
         String userId = userApiService.registerUser(generateUserDetails()).getValue("id");
         userApiService.createAddress(generateAddressDetails(userId));
         AssertableResponse addressesAssertableResponse = userApiService.getAddressesByCutomerId(userId)
-                .shouldHave(statusCode(200))
-                .shouldHave(contentType(ContentType.JSON));
+//                .shouldHave(statusCode(200))
+//                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyJson("jsonSchemas/getCustomerAddresses_Schema.json"));
 
         AddressesByCustomerIdResponse addressesByCustomerIdResponse = addressesAssertableResponse.asPojo(AddressesByCustomerIdResponse.class);
         assertThat(addressesByCustomerIdResponse.getEmbedded().getAddress(), hasSize(greaterThanOrEqualTo(1)));

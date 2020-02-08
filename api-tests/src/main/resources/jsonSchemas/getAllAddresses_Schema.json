@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_embedded": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "string"
+                },
+                "street": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "postcode": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "_links": {
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "type": "object",
+                      "properties": {
+                        "href": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "href"
+                      ]
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "href": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "href"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "self",
+                    "address"
+                  ]
+                }
+              },
+              "required": [
+                "number",
+                "street",
+                "city",
+                "postcode",
+                "country",
+                "_links"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "address"
+      ]
+    },
+    "_links": {
+      "type": "object"
+    },
+    "page": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "_embedded",
+    "_links",
+    "page"
+  ]
+}
