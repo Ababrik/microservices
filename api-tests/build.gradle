@@ -1,17 +1,3 @@
-plugins {
-    id 'org.assertj.generator' version '0.0.6b'
-}
-
-sourceSets {
-    main {
-        // must specify assertJ block to have it applied
-        assertJ {}
-    }
-}
-assertJ {
-    // default: generated-srcs/${SOURCE_SET_NAME_TAG}/java
-    outputDir = "src-gen/${SOURCE_SET_NAME_TAG}/java"
-}
 ext {
     junitVersion = '5.1.0'
     restAssuredVersion = '3.3.0'

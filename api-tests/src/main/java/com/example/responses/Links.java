@@ -15,10 +15,13 @@ public class Links {
     private Addresses addresses;
 
     @JsonProperty("address")
-    private Addresses address;
+    private Address address;
 
     @JsonProperty("cards")
     private Cards cards;
+
+    @JsonProperty("card")
+    private Card card;
 
     @JsonProperty("self")
     private Self self;
@@ -26,23 +29,37 @@ public class Links {
     @JsonProperty("customer")
     private Customer customer;
 
+//    @Override
+//    public String toString() {
+//                if (!(getSelf()==null & getCustomer() == null & getAddress() == null & getCards() == null)) {
+//            return "Links{" +
+//                    "self=" + self +
+//                    ", customer=" + customer +
+//                    "addresses=" + addresses +
+//                    ", cards=" + cards +
+//                    '}';
+//        } else if (!(getSelf() == null & getCard() == null)) {
+//            return "Links{" +
+//                    "self=" + self +
+//                    ", card=" + card +
+//                    '}';
+//        } else if (!(getSelf() == null & getAddress() == null)) {
+//            return "Links{" +
+//                    "self=" + self +
+//                    "address=" + address +
+//                    '}';
+//        } else return "Invalid object field!";
+//    }
 
-    public String linksCustomertoString() {
-        return
-                "Links{" +
-                        "addresses = '" + addresses + '\'' +
-                        ",cards = '" + cards + '\'' +
-                        ",self = '" + self + '\'' +
-                        ",customer = '" + customer + '\'' +
-                        "}";
+    @Override
+    public String toString() {
+        return "Links{" +
+                "addresses=" + addresses +
+                ", address=" + address +
+                ", cards=" + cards +
+                ", card=" + card +
+                ", self=" + self +
+                ", customer=" + customer +
+                '}';
     }
-
-    public String linksAddressToString() {
-        return
-                "Links{" +
-                        ",self = '" + self + '\'' +
-                        "addresses = '" + addresses + '\'' +
-                        "}";
-    }
-
 }

@@ -13,26 +13,41 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class Embedded {
 
+    @JsonProperty("card")
+    private List<CardItem> card;
+
+
     @JsonProperty("customer")
     private List<CustomerItem> customer;
 
     @JsonProperty("address")
     private List<AddressItem> address;
 
-    @JsonProperty("card")
-    private List<CardItem> card;
-
-
-    public String embededCustomerToString() {
+    @Override
+    public String toString() {
         return "Embedded{" +
-                "customer = '" + customer + '\'' +
-                "}".toString();
+                "card=" + card +
+                ", customer=" + customer +
+                ", address=" + address +
+                '}';
     }
 
-    public String embededAddressTostring() {
-        return "Embedded{" +
-                "address = '" + address + '\'' +
-                "}".toString();
-    }
+    //    @Override
+//    public String toString() {
+//        if (!getCustomer().isEmpty()) {
+//            return "Embedded{" +
+//                    "customer=" + customer +
+//                    '}';
+//        } else if (!getAddress().isEmpty()) {
+//            return "Embedded{" +
+//                    "address=" + address +
+//                    '}';
+//        } else if (!getCard().isEmpty()){
+//            return "Embedded{" +
+//                    "card=" + card +
+//                    '}';
+//        } else return "Invalid object field!";
+//    }
+
 
 }

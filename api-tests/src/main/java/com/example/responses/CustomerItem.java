@@ -12,6 +12,7 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class CustomerItem {
 
+
     @JsonProperty("id")
     private String id;
 
@@ -30,12 +31,15 @@ public class CustomerItem {
 
     @Override
     public String toString() {
-        return
-                "CustomerItem{" +
-                        "firstName = '" + firstName + '\'' +
-                        ",lastName = '" + lastName + '\'' +
-                        ",_links = '" + links + '\'' +
-                        ",username = '" + username + '\'' +
-                        "}";
+        return "CustomerItem{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", links=" + links +
+                ", username='" + username + '\'' +
+                '}';
     }
+
+
+
 }

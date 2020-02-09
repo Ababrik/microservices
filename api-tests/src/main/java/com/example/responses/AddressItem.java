@@ -12,6 +12,9 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class AddressItem{
 
+	@JsonProperty("id")
+	private String id;
+
 	@JsonProperty("number")
 	private String number;
 
@@ -30,18 +33,16 @@ public class AddressItem{
 	@JsonProperty("postcode")
 	private String postcode;
 
-
-
 	@Override
- 	public String toString(){
-		return 
-			"AddressItem{" + 
-			"number = '" + number + '\'' + 
-			",country = '" + country + '\'' + 
-			",city = '" + city + '\'' + 
-			",_links = '" + links + '\'' + 
-			",street = '" + street + '\'' + 
-			",postcode = '" + postcode + '\'' + 
-			"}";
-		}
+	public String toString() {
+		return "AddressItem{" +
+				"id='" + id + '\'' +
+				", number='" + number + '\'' +
+				", country='" + country + '\'' +
+				", city='" + city + '\'' +
+				", links=" + links +
+				", street='" + street + '\'' +
+				", postcode='" + postcode + '\'' +
+				'}';
+	}
 }
