@@ -29,6 +29,12 @@ public class Links {
     @JsonProperty("customer")
     private Customer customer;
 
+    @JsonProperty("profile")
+    private Profile profile;
+
+    @JsonProperty("search")
+    private Search search;
+
 //    @Override
 //    public String toString() {
 //                if (!(getSelf()==null & getCustomer() == null & getAddress() == null & getCards() == null)) {

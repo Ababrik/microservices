@@ -1,13 +1,9 @@
 package com.example.conditions;
 
 import io.restassured.http.ContentType;
-import io.restassured.matcher.ResponseAwareMatcher;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.hamcrest.Matcher;
 
 
 @RequiredArgsConstructor

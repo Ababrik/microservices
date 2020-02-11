@@ -1,6 +1,5 @@
 package com.example.responses;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +9,7 @@ import javax.annotation.Generated;
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UserAddressesResponse{
+public class Get_CustomerCardsByCustomerId_Response {
 
 	@JsonProperty("_embedded")
 	private Embedded embedded;
@@ -26,7 +24,7 @@ public class UserAddressesResponse{
 	@Override
  	public String toString(){
 		return 
-			"UserAddressesResponse{" + 
+			"Get_CustomerCardsByCustomerId_Response{" +
 			"_embedded = '" + embedded + '\'' + 
 			",_links = '" + links + '\'' + 
 			",page = '" + page + '\'' + 

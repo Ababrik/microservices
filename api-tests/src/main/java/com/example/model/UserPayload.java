@@ -18,7 +18,6 @@ public class UserPayload {
     @JsonProperty("password")
     private String password;
 
-
     @JsonProperty("email")
     private String email;
 

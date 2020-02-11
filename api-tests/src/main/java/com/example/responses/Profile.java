@@ -9,17 +9,18 @@ import javax.annotation.Generated;
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class AddedCardResponse {
+public class Profile{
 
-	@JsonProperty("id")
-	private String id;
+	@JsonProperty("href")
+	private String href;
+
 
 
 	@Override
  	public String toString(){
 		return 
-			"AddedCardResponse{" +
-			"id = '" + id + '\'' + 
+			"Profile{" + 
+			"href = '" + href + '\'' + 
 			"}";
 		}
 }

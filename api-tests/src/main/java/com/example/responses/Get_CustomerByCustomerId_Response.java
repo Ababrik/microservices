@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Generated("com.robohorse.robopojogenerator")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDetailsResponse {
+public class Get_CustomerByCustomerId_Response {
 
     @JsonProperty("firstName")
     private String firstName;
@@ -26,7 +26,7 @@ public class UserDetailsResponse {
     @Override
     public String toString() {
         return
-                "UserDetailsResponse{" +
+                "Get_CustomerByCustomerId_Response{" +
                         "firstName = '" + firstName + '\'' +
                         ",lastName = '" + lastName + '\'' +
                         ",_links = '" + links + '\'' +

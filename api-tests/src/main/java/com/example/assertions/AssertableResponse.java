@@ -20,9 +20,8 @@ public class AssertableResponse {
 
     private final Response response;
 
-    // @Step("api response should have {condition}")
+
     public AssertableResponse shouldHave(Condition condition) {
-        //log.info("\nAbout to check condition " + condition);
         condition.check(response);
         return this;
     }
@@ -41,14 +40,13 @@ public class AssertableResponse {
 
     public <T> T asPojo(Class<T> tClass) {
         String responseBody = response.getBody().asString();
-               ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(responseBody, tClass);
-            } catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 
 }

@@ -12,9 +12,9 @@ import io.restassured.parsing.Parser;
 public abstract class ApiService {
 
     public RequestSpecification setUp() {
-        RestAssured.registerParser("application/json; charset=utf-8", Parser.JSON);
-        return RestAssured.given().
-                contentType(ContentType.JSON).log().all()
+        return RestAssured.given()
+                .accept(ContentType.JSON).log().all()
+                .contentType(ContentType.JSON).log().all()
                 .filters(new AllureRestAssured(),
                         new RequestLoggingFilter(),
                         new ResponseLoggingFilter());

@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Generated;
-
-
-@Setter
 @Getter
+@Setter
 @Generated("com.robohorse.robopojogenerator")
-public class AddressesByCustomerIdResponse{
+public class Get_AllCards_Response {
 
 	@JsonProperty("_embedded")
 	private Embedded embedded;
@@ -22,11 +20,10 @@ public class AddressesByCustomerIdResponse{
 	private Page page;
 
 
-
 	@Override
  	public String toString(){
 		return 
-			"AddressesByCustomerIdResponse{" + 
+			"Get_AllCards_Response{" +
 			"_embedded = '" + embedded + '\'' + 
 			",_links = '" + links + '\'' + 
 			",page = '" + page + '\'' + 

@@ -12,7 +12,7 @@ import javax.annotation.Generated;
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class AddressByAddressIdResponse {
+public class Get_AddressByAddressId_Response {
 
 	@JsonProperty("number")
 	private String number;
@@ -36,7 +36,7 @@ public class AddressByAddressIdResponse {
 	@Override
  	public String toString(){
 		return 
-			"AddressByAddressIdResponse{" +
+			"Get_AddressByAddressId_Response{" +
 			"number = '" + number + '\'' + 
 			",country = '" + country + '\'' + 
 			",city = '" + city + '\'' + 

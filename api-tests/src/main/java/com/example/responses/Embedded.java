@@ -23,31 +23,16 @@ public class Embedded {
     @JsonProperty("address")
     private List<AddressItem> address;
 
+    @JsonProperty("customerOrders")
+    private List<CustomerOrdersItem> customerOrders;
+
     @Override
     public String toString() {
         return "Embedded{" +
                 "card=" + card +
                 ", customer=" + customer +
                 ", address=" + address +
+                ", customerOrders=" + customerOrders +
                 '}';
     }
-
-    //    @Override
-//    public String toString() {
-//        if (!getCustomer().isEmpty()) {
-//            return "Embedded{" +
-//                    "customer=" + customer +
-//                    '}';
-//        } else if (!getAddress().isEmpty()) {
-//            return "Embedded{" +
-//                    "address=" + address +
-//                    '}';
-//        } else if (!getCard().isEmpty()){
-//            return "Embedded{" +
-//                    "card=" + card +
-//                    '}';
-//        } else return "Invalid object field!";
-//    }
-
-
 }
