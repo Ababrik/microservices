@@ -9,10 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserApiService extends ApiService {
 
-    public AssertableResponse login() {
+    public AssertableResponse login(String username, String password) {
         return new AssertableResponse(setUp()
+                .auth().preemptive().basic(username, password)
                 .when()
-                .get(" /login"));
+                .get(" login"));
     }
 
     public AssertableResponse registerUser(UserPayload userPayload) {

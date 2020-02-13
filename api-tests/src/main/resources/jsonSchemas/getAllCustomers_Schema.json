@@ -98,8 +98,6 @@
     }
   },
   "required": [
-    "_embedded",
-    "_links",
-    "page"
+    "_embedded"
   ]
 }
