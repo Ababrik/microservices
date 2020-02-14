@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "customerId": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "addresses": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "string"
+                },
+                "street": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "postcode": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "number",
+                "street",
+                "city",
+                "postcode",
+                "country"
+              ]
+            }
+          ]
+        },
+        "cards": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "longNum": {
+                  "type": "string"
+                },
+                "expires": {
+                  "type": "string"
+                },
+                "ccv": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "longNum",
+                "expires",
+                "ccv"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "username",
+        "addresses",
+        "cards"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "number",
+        "street",
+        "city",
+        "postcode",
+        "country"
+      ]
+    },
+    "card": {
+      "type": "object",
+      "properties": {
+        "longNum": {
+          "type": "string"
+        },
+        "expires": {
+          "type": "string"
+        },
+        "ccv": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "longNum",
+        "expires",
+        "ccv"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "itemId": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "unitPrice": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "itemId",
+            "quantity",
+            "unitPrice"
+          ]
+        }
+      ]
+    },
+    "shipment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "date": {
+      "type": "string"
+    },
+    "total": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "customerId",
+    "customer",
+    "address",
+    "card",
+    "items",
+    "shipment",
+    "date",
+    "total"
+  ]
+}
