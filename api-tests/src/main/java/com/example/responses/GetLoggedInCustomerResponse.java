@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Get_LoggedInCustomer_Response {
+public class GetLoggedInCustomerResponse {
 
 	@JsonProperty("_embedded")
 	private Embedded embedded;
@@ -42,7 +42,7 @@ public class Get_LoggedInCustomer_Response {
 	@Override
  	public String toString(){
 		return 
-			"Get_LoggedInCustomer_Response{" +
+			"GetLoggedInCustomerResponse{" +
 			"_embedded = '" + embedded + '\'' + 
 			",_links = '" + links + '\'' + 
 			",page = '" + page + '\'' + 

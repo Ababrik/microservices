@@ -9,7 +9,7 @@ import javax.annotation.Generated;
 @Setter
 @Getter
 @Generated("com.robohorse.robopojogenerator")
-public class Get_AllCustomers_Response {
+public class GetAllCustomersResponse {
 
     @JsonProperty("_embedded")
     private Embedded embedded;
@@ -24,7 +24,7 @@ public class Get_AllCustomers_Response {
     @Override
     public String toString() {
         return
-                "Get_AllCustomers_Response{" +
+                "GetAllCustomersResponse{" +
                         "_embedded = '" + embedded + '\'' +
                         ",_links = '" + links + '\'' +
                         ",page = '" + page + '\'' +

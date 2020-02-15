@@ -5,33 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Generated;
-
-@Setter
 @Getter
+@Setter
 @Generated("com.robohorse.robopojogenerator")
-public class Get_CardByCardId_Response {
+public class GetAllCardsResponse {
 
-	@JsonProperty("expires")
-	private String expires;
-
-	@JsonProperty("longNum")
-	private String longNum;
+	@JsonProperty("_embedded")
+	private Embedded embedded;
 
 	@JsonProperty("_links")
 	private Links links;
 
-	@JsonProperty("ccv")
-	private String ccv;
+	@JsonProperty("page")
+	private Page page;
 
 
 	@Override
  	public String toString(){
 		return 
-			"Get_CardByCardId_Response{" +
-			"expires = '" + expires + '\'' + 
-			",longNum = '" + longNum + '\'' + 
+			"GetAllCardsResponse{" +
+			"_embedded = '" + embedded + '\'' + 
 			",_links = '" + links + '\'' + 
-			",ccv = '" + ccv + '\'' + 
+			",page = '" + page + '\'' + 
 			"}";
 		}
 }

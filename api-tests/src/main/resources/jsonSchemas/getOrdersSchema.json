@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_embedded": {
+      "type": "object",
+      "properties": {
+        "customerOrders": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "customerOrders"
+      ]
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "href"
+          ]
+        },
+        "profile": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "href"
+          ]
+        },
+        "search": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "href"
+          ]
+        }
+      },
+      "required": [
+        "self",
+        "profile",
+        "search"
+      ]
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer"
+        },
+        "totalElements": {
+          "type": "integer"
+        },
+        "totalPages": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "size",
+        "totalElements",
+        "totalPages",
+        "number"
+      ]
+    }
+  },
+  "required": [
+    "_embedded",
+    "_links",
+    "page"
+  ]
+}

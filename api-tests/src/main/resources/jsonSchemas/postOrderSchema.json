@@ -186,7 +186,7 @@
       "type": "string"
     },
     "total": {
-      "type": "integer"
+      "type": "number"
     }
   },
   "required": [

@@ -2,16 +2,13 @@ package com.example.assertions;
 
 import com.example.conditions.Condition;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.qameta.allure.Step;
-import io.restassured.internal.RestAssuredResponseImpl;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
@@ -48,5 +45,8 @@ public class AssertableResponse {
         }
     }
 
+    public Map<String, String> getCookies(){
+        return response.getCookies();
+    }
 
 }
