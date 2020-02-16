@@ -21,6 +21,7 @@
               "type": "string"
             }
           },
+          "additionalProperties": false,
           "required": [
             "href"
           ]
@@ -32,17 +33,20 @@
               "type": "string"
             }
           },
+          "additionalProperties": false,
           "required": [
             "href"
           ]
         }
       },
+      "additionalProperties": false,
       "required": [
         "self",
         "card"
       ]
     }
   },
+  "additionalProperties": false,
   "required": [
     "longNum",
     "expires",

@@ -7,6 +7,7 @@
       "properties": {
         "customer": {
           "type": "array",
+          "uniqueItems": true,
           "items": [
             {
               "type": "object",
@@ -30,6 +31,7 @@
                           "type": "string"
                         }
                       },
+                      "additionalProperties": false,
                       "required": [
                         "href"
                       ]
@@ -41,6 +43,7 @@
                           "type": "string"
                         }
                       },
+                      "additionalProperties": false,
                       "required": [
                         "href"
                       ]
@@ -52,6 +55,7 @@
                           "type": "string"
                         }
                       },
+                      "additionalProperties": false,
                       "required": [
                         "href"
                       ]
@@ -63,19 +67,20 @@
                           "type": "string"
                         }
                       },
+                      "additionalProperties": false,
                       "required": [
                         "href"
                       ]
                     }
                   },
+                  "additionalProperties": false,
                   "required": [
                     "self",
-                    "customer",
-                    "addresses",
-                    "cards"
+                    "customer"
                   ]
                 }
               },
+              "additionalProperties": false,
               "required": [
                 "firstName",
                 "lastName",
@@ -83,23 +88,23 @@
                 "_links"
               ]
             }
-          ]
+          ],
+          "additionalItems": false
         }
       },
-      "required": [
-        "customer"
-      ]
+      "additionalProperties": false
     },
     "_links": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false
     },
     "page": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false
     }
   },
+  "additionalProperties": false,
   "required": [
-    "_embedded",
-    "_links",
-    "page"
+    "_embedded"
   ]
 }

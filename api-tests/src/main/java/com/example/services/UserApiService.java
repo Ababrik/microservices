@@ -6,6 +6,8 @@ import com.example.model.CardPayload;
 import com.example.model.UserPayload;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
+
 @Slf4j
 public class UserApiService extends ApiService {
 
@@ -38,18 +40,21 @@ public class UserApiService extends ApiService {
     }
 
 
-    public AssertableResponse getUserById(String customerId) {
+    public AssertableResponse getUserById(Map<String, String> cookies, String customerId) {
         return new AssertableResponse(setUp()
+                .cookies(cookies)
                 .when()
                 .get("customers/" + customerId));
     }
-    public AssertableResponse getCustomerCardByCustomerId(String customerId) {
+    public AssertableResponse getCardByCustomerId(Map<String, String> cookies, String customerId) {
         return new AssertableResponse(setUp()
+                .cookies(cookies)
                 .when()
                 .get("/customers/" + customerId + "/cards"));
     }
-    public AssertableResponse getAddressesByCutomerId(String customerId) {
+    public AssertableResponse getAddressesByCutomerId(Map<String, String> cookies, String customerId) {
         return new AssertableResponse(setUp()
+                .cookies(cookies)
                 .when()
                 .get(" /customers/" + customerId + "/addresses"));
     }
@@ -60,8 +65,9 @@ public class UserApiService extends ApiService {
                 .get("/cards"));
     }
 
-    public AssertableResponse createNewCard(CardPayload cardPayload) {
+    public AssertableResponse createNewCard(Map<String, String> cookies, CardPayload cardPayload) {
         return new AssertableResponse(setUp()
+                .cookies(cookies)
                 .body(cardPayload)
                 .when()
                 .post("/cards"));
@@ -87,20 +93,23 @@ public class UserApiService extends ApiService {
     }
 
 
-    public AssertableResponse createAddress(AddressPayload addressPayload) {
+    public AssertableResponse createAddress(Map<String, String> cookies, AddressPayload addressPayload) {
         return new AssertableResponse((setUp()
+                .cookies(cookies)
                 .body(addressPayload)
                 .when()
                 .post("/addresses")));
     }
-    public AssertableResponse deleteAddress(String addressId) {
+    public AssertableResponse deleteAddress(Map<String, String> cookies,  String addressId) {
         return new AssertableResponse(setUp()
+                .cookies(cookies)
                 .when()
                 .delete("/addresses/" + addressId));
     }
 
-    public AssertableResponse getAddressByAddressId(String addressId) {
+    public AssertableResponse getAddressByAddressId(Map<String, String> cookies, String addressId) {
         return new AssertableResponse(setUp()
+                .cookies(cookies)
                 .when()
                 .get(" /addresses/" + addressId));
     }

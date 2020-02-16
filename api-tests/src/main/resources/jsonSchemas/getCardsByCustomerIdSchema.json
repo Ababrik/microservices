@@ -30,6 +30,7 @@
                           "type": "string"
                         }
                       },
+                      "additionalProperties": false,
                       "required": [
                         "href"
                       ]
@@ -41,17 +42,20 @@
                           "type": "string"
                         }
                       },
+                      "additionalProperties": false,
                       "required": [
                         "href"
                       ]
                     }
                   },
+                  "additionalProperties": false,
                   "required": [
                     "self",
                     "card"
                   ]
                 }
               },
+              "additionalProperties": false,
               "required": [
                 "longNum",
                 "expires",
@@ -59,23 +63,23 @@
                 "_links"
               ]
             }
-          ]
+          ],
+          "additionalItems": false
         }
       },
-      "required": [
-        "card"
-      ]
+      "additionalProperties": false
     },
     "_links": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false
     },
     "page": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false
     }
   },
+  "additionalProperties": false,
   "required": [
-    "_embedded",
-    "_links",
-    "page"
+    "_embedded"
   ]
 }

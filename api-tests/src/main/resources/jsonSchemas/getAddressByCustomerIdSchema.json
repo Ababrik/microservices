@@ -69,10 +69,7 @@
             }
           ]
         }
-      },
-      "required": [
-        "address"
-      ]
+      }
     },
     "_links": {
       "type": "object"
@@ -82,8 +79,6 @@
     }
   },
   "required": [
-    "_embedded",
-    "_links",
-    "page"
+    "_embedded"
   ]
 }

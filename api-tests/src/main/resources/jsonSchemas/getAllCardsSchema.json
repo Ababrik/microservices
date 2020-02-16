@@ -7,63 +7,62 @@
       "properties": {
         "card": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "longNum": {
-                  "type": "string"
-                },
-                "expires": {
-                  "type": "string"
-                },
-                "ccv": {
-                  "type": "string"
-                },
-                "_links": {
-                  "type": "object",
-                  "properties": {
-                    "self": {
-                      "type": "object",
-                      "properties": {
-                        "href": {
-                          "type": "string"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "href"
-                      ]
-                    },
-                    "card": {
-                      "type": "object",
-                      "properties": {
-                        "href": {
-                          "type": "string"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "href"
-                      ]
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "self",
-                    "card"
-                  ]
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "longNum": {
+                "type": "string"
               },
-              "additionalProperties": false,
-              "required": [
-                "longNum",
-                "expires",
-                "ccv",
-                "_links"
-              ]
-            }
-          ]
+              "expires": {
+                "type": "string"
+              },
+              "ccv": {
+                "type": "string"
+              },
+              "_links": {
+                "type": "object",
+                "properties": {
+                  "self": {
+                    "type": "object",
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "href"
+                    ]
+                  },
+                  "card": {
+                    "type": "object",
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "href"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "self",
+                  "card"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "longNum",
+              "expires",
+              "ccv",
+              "_links"
+            ]
+          },
+          "additionalItems": false
         }
       },
       "additionalProperties": false,

@@ -7,80 +7,87 @@
       "properties": {
         "address": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "number": {
-                  "type": "string"
-                },
-                "street": {
-                  "type": "string"
-                },
-                "city": {
-                  "type": "string"
-                },
-                "postcode": {
-                  "type": "string"
-                },
-                "country": {
-                  "type": "string"
-                },
-                "_links": {
-                  "type": "object",
-                  "properties": {
-                    "self": {
-                      "type": "object",
-                      "properties": {
-                        "href": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "href"
-                      ]
-                    },
-                    "address": {
-                      "type": "object",
-                      "properties": {
-                        "href": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "href"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "self",
-                    "address"
-                  ]
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "string"
               },
-              "required": [
-                "number",
-                "street",
-                "city",
-                "postcode",
-                "country",
-                "_links"
-              ]
-            }
-          ]
+              "street": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "_links": {
+                "type": "object",
+                "properties": {
+                  "self": {
+                    "type": "object",
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "href"
+                    ]
+                  },
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "href"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "self",
+                  "address"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "number",
+              "street",
+              "city",
+              "postcode",
+              "country",
+              "_links"
+            ]
+          },
+          "additionalItems": false
         }
       },
+      "additionalProperties": false,
       "required": [
         "address"
       ]
     },
     "_links": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false
     },
     "page": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false
     }
   },
+  "additionalProperties": false,
   "required": [
     "_embedded"
   ]

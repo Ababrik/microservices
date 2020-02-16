@@ -21,9 +21,6 @@ public class OrderApiTest extends BaseTest {
 
     @Test
     void canGetOrders(){
-//        UserPayload userDetails = generateUserDetails();
-//        AssertableResponse user = userApiService.registerUser(userDetails);
-//        userApiService.login(userDetails.getUsername(),userDetails.getPassword());
         Map<String, String> cookies = userApiService.login("user", "password").getCookies();
         AssertableResponse orders = ordersApiService.getOrders(cookies)
 //                .shouldHave(statusCode(200))
@@ -36,7 +33,6 @@ public class OrderApiTest extends BaseTest {
     @Test
     void canPostOrder(){
         Map<String, String> cookies = userApiService.login("user", "password").getCookies();
-        userApiService.login("user", "password");
         ordersApiService.createOrder(cookies)
 //        .shouldHave(statusCode(201))
 //        .shouldHave(contentType(ContentType.JSON))
