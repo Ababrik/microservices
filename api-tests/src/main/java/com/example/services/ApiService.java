@@ -12,9 +12,10 @@ public abstract class ApiService {
 
     public RequestSpecification setUp() {
         return RestAssured.given()
-                .accept(ContentType.JSON).log().all()
-                .contentType(ContentType.JSON).log().all()
-                .filters(new AllureRestAssured(),
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .filters(
+                        new AllureRestAssured(),
                         new RequestLoggingFilter(),
                         new ResponseLoggingFilter());
     }

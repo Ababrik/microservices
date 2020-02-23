@@ -19,7 +19,7 @@ public class UserApiService extends ApiService {
     }
 
     public AssertableResponse registerUser(UserPayload userPayload) {
-               return new AssertableResponse(setUp()
+        return new AssertableResponse(setUp()
                 .body(userPayload)
                 .when()
                 .post("register"));
@@ -46,12 +46,14 @@ public class UserApiService extends ApiService {
                 .when()
                 .get("customers/" + customerId));
     }
+
     public AssertableResponse getCardByCustomerId(Map<String, String> cookies, String customerId) {
         return new AssertableResponse(setUp()
                 .cookies(cookies)
                 .when()
                 .get("/customers/" + customerId + "/cards"));
     }
+
     public AssertableResponse getAddressesByCutomerId(Map<String, String> cookies, String customerId) {
         return new AssertableResponse(setUp()
                 .cookies(cookies)
@@ -69,6 +71,14 @@ public class UserApiService extends ApiService {
         return new AssertableResponse(setUp()
                 .cookies(cookies)
                 .body(cardPayload)
+                .when()
+                .post("/cards"));
+    }
+
+    public AssertableResponse createNewCardWithoutCardDetails(Map<String, String> cookies, CardPayload emptyCardPayload) {
+        return new AssertableResponse(setUp()
+                .cookies(cookies)
+                .body(emptyCardPayload)
                 .when()
                 .post("/cards"));
     }
@@ -100,7 +110,16 @@ public class UserApiService extends ApiService {
                 .when()
                 .post("/addresses")));
     }
-    public AssertableResponse deleteAddress(Map<String, String> cookies,  String addressId) {
+
+    public AssertableResponse createAddressWithoutAddressDetails(Map<String, String> cookies, AddressPayload emptyAddressPayload) {
+        return new AssertableResponse((setUp()
+                .cookies(cookies)
+                .body(emptyAddressPayload)
+                .when()
+                .post("/addresses")));
+    }
+
+    public AssertableResponse deleteAddress(Map<String, String> cookies, String addressId) {
         return new AssertableResponse(setUp()
                 .cookies(cookies)
                 .when()
@@ -113,14 +132,6 @@ public class UserApiService extends ApiService {
                 .when()
                 .get(" /addresses/" + addressId));
     }
-
-
-
-
-
-
-
-
 
 
 }

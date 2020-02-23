@@ -17,39 +17,48 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class CatalogueApiTest extends BaseTest {
     private CatalogueApiService catalogueApiService = new CatalogueApiService();
+
     @Test
-    void canGetCatalogue(){
-        catalogueApiService.getCatalogue()
+    void canGetCatalogue() {
+        AssertableResponse assertableResponse = catalogueApiService.getCatalogue()
                 .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyJson("jsonSchemas/getCatalogueSchema.json"));
-
     }
 
     @Test
-    void canGetProductById(){
+    void canGetProductById() {
         catalogueApiService.getProductById("a0a4f044-b040-410d-8ead-4de0446aec7e")
                 .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyJson("jsonSchemas/getProduct.json"));
     }
 
-@Test
-    void canGetCataloguesSize(){
+    @Test
+    void cannotGetNonexistentProduct() {
+        catalogueApiService.deleteCatalogItem("a0a4f044-b040-410d-8ead-4de0446aec7e");
+        catalogueApiService.getProductById("a0a4f044-b040-410d-8ead-4de0446aec7e")
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("product is not found")));
+    }
+
+    @Test
+    void canGetCataloguesSize() {
         AssertableResponse size = catalogueApiService.getCatalogueSize()
                 .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyJson("jsonSchemas/getCatalogueSize.json"));
-       assertThat(size.asPojo(GetCatalogueSizeResponse.class).getSize(), is(greaterThanOrEqualTo(1)));
-}
+        assertThat(size.asPojo(GetCatalogueSizeResponse.class).getSize(), is(greaterThanOrEqualTo(1)));
+    }
 
-@Test
-    void canGetTags(){
+    @Test
+    void canGetTags() {
         AssertableResponse tags = catalogueApiService.getTags()
                 .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON))
-                .shouldHave(bodyJson("jsonSchemas/getTags.json" ));
-        assertThat(tags.asPojo(GetTagsResponse.class).getTags().size(), is(greaterThanOrEqualTo(1)) );
-}
+                .shouldHave(bodyJson("jsonSchemas/getTags.json"));
+        assertThat(tags.asPojo(GetTagsResponse.class).getTags().size(), is(greaterThanOrEqualTo(1)));
+    }
 
 }

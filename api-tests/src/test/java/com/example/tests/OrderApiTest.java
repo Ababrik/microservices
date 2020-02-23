@@ -17,26 +17,35 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 public class OrderApiTest extends BaseTest {
 
     private final UserApiService userApiService = new UserApiService();
-    private  final OrdersApiService ordersApiService = new OrdersApiService();
+    private final OrdersApiService ordersApiService = new OrdersApiService();
 
     @Test
-    void canGetOrders(){
-        Map<String, String> cookies = userApiService.login("user", "password").getCookies();
-        AssertableResponse orders = ordersApiService.getOrders(cookies)
+    void canGetOrders() {
+        AssertableResponse orders = ordersApiService.getOrders(userApiService.login("user", "password").getCookies());
 //                .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON));
-        .shouldHave(bodyJson("jsonSchemas/getOrdersSchema.json"));
-//        assertThat(orders.asPojo(GetOrdersResponse.class).getEmbedded().getCustomerOrders().size(), is(greaterThanOrEqualTo(1)));
+//                .shouldHave(bodyJson("jsonSchemas/getOrdersSchema.json"));
+        assertThat(orders.asPojo(GetOrdersResponse.class).getEmbedded().getCustomerOrders().size(), is(greaterThanOrEqualTo(1)));
 
     }
 
     @Test
-    void canPostOrder(){
+    void canPostOrder() {
         Map<String, String> cookies = userApiService.login("user", "password").getCookies();
         ordersApiService.createOrder(cookies)
 //        .shouldHave(statusCode(201))
 //        .shouldHave(contentType(ContentType.JSON))
-        .shouldHave(bodyJson("jsonSchemas/postOrderSchema.json"));
+                .shouldHave(bodyJson("jsonSchemas/postOrderSchema.json"));
+    }
+
+    @Test
+    void cannotDeleteOrderByOrderId() {
+        Map<String, String> cookies = userApiService.login("user", "password").getCookies();
+        AssertableResponse order = ordersApiService.createOrder(cookies);
+        ordersApiService.deleteOrders(cookies, order.getValue("id"))
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("cannot delete order")));
     }
 
 }

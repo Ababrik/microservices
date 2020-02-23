@@ -18,7 +18,15 @@ public class OrdersApiService extends ApiService {
     public AssertableResponse createOrder(Map<String, String> cookies) {
         return new AssertableResponse(setUp()
                 .cookies(cookies)
+                .body("")
                 .when()
                 .post("/orders"));
+    }
+
+    public AssertableResponse deleteOrders(Map<String, String> cookies, String orderId) {
+        return new AssertableResponse(setUp()
+                .cookies(cookies)
+                .when()
+                .delete("/orders/" + orderId));
     }
 }

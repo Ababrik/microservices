@@ -28,4 +28,10 @@ public class CatalogueApiService extends ApiService {
                 .get("/tags"));
     }
 
+    public AssertableResponse deleteCatalogItem(String itemId){
+        return new AssertableResponse(setUp()
+        .when()
+        .delete("/catalogue/" + itemId));
+    }
+
 }

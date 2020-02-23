@@ -1,3 +1,4 @@
+
 ext {
     junitVersion = '5.1.0'
     restAssuredVersion = '3.3.0'

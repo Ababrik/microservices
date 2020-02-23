@@ -29,6 +29,7 @@ public class UserApiTests extends BaseTest {
                 .shouldHave(statusCode(200))
                 .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyJson("jsonSchemas/getLoggedInCustomerSchema.json"));
+
     }
 
     @Test
@@ -47,7 +48,7 @@ public class UserApiTests extends BaseTest {
         userApiService.registerUser(userPayload)
                 .shouldHave(statusCode(400))
                 .shouldHave(contentType(ContentType.JSON))
-                .shouldHave(bodyField("error", not(isEmptyString())));
+                .shouldHave(bodyField("error", is("username is required")));
     }
 
     @Test
@@ -57,7 +58,7 @@ public class UserApiTests extends BaseTest {
         userApiService.registerUser(userPayload)
                 .shouldHave(statusCode(400))
                 .shouldHave(contentType(ContentType.JSON))
-                .shouldHave(bodyField("error", not(isEmptyString())));
+                .shouldHave(bodyField("error", is("password is required")));
     }
 
     @Test
@@ -100,8 +101,17 @@ public class UserApiTests extends BaseTest {
                 .shouldHave(bodyJson("jsonSchemas/getCustomerByCustomerIdSchema.json"));
         GetCustomerByCustomerIdResponse userDetailsResponse = userAssertableResponse.asPojo(GetCustomerByCustomerIdResponse.class);
         assertThat("username", userDetailsResponse.getUsername().equalsIgnoreCase(generatedUserDetails.getUsername()));
+    }
 
-
+    @Test
+    void cannotGetNonexistentCustomer(){
+        UserPayload generatedUserDetails = userApiServiceUtils.generateUserDetails();
+        AssertableResponse registeredUser = userApiService.registerUser(generatedUserDetails);
+        userApiService.deletedUser(registeredUser.getValue("id"));
+        userApiService.getUserById(registeredUser.getCookies(), registeredUser.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("customer is not found")));
     }
 
     @Test
@@ -113,7 +123,6 @@ public class UserApiTests extends BaseTest {
         GetAllCustomersResponse users = usersResponse.asPojo(GetAllCustomersResponse.class);
         assertThat(users.getEmbedded().getCustomer(), hasSize(greaterThanOrEqualTo(2)));
     }
-
 
     @Test
     void canCreateCard() {
@@ -128,6 +137,15 @@ public class UserApiTests extends BaseTest {
     }
 
     @Test
+    void canCreateCardWithoutCardItemDetails() {
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        AssertableResponse card = userApiService.createNewCardWithoutCardDetails(createdUser.getCookies(), userApiServiceUtils.setEmptyCardDetails())
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType(ContentType.JSON));
+        assertThat(card.asPojo(PostCardResponse.class).getId(), not(isEmptyString()));
+    }
+
+    @Test
     void canDeleteCard() {
         AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
         AssertableResponse createdCard = userApiService.createNewCard(createdUser.getCookies(), userApiServiceUtils.generateCardDetails(createdUser.getValue("id")));
@@ -135,9 +153,20 @@ public class UserApiTests extends BaseTest {
                 .shouldHave(statusCode(200));
 //                .shouldHave(contentType(ContentType.JSON))
 //                .shouldHave(bodyField("status", is(true)));
-        boolean status = id.asPojo(DeleteCardResponse.class).isStatus();
-        assertThat(status, is(true));
+        assertThat(id.asPojo(DeleteCardResponse.class).isStatus(), is(true));
     }
+
+    @Test
+    void cannotDeleteNonexistentCard() {
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        AssertableResponse createdCard = userApiService.createNewCard(createdUser.getCookies(), userApiServiceUtils.generateCardDetails(createdUser.getValue("id")));
+        userApiService.deleteCardByCardId(createdCard.getValue("id"));
+        userApiService.deleteCardByCardId(createdCard.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("card is not found")));
+    }
+
 
     @Test
     void canGetCardsByCustomerId() {
@@ -151,6 +180,18 @@ public class UserApiTests extends BaseTest {
     }
 
     @Test
+    void cannotGetCardByNonexistentCustomerId(){
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        userApiService.createNewCard(createdUser.getCookies(), userApiServiceUtils.generateCardDetails(createdUser.getValue("id")));
+        userApiService.deletedUser(createdUser.getValue("id"));
+        userApiService.getCardByCustomerId(createdUser.getCookies(), createdUser.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error",is("customer is not found")));
+    }
+
+
+    @Test
     void canGetCardByCardId() {
         AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
         AssertableResponse createdCard = userApiService.createNewCard(createdUser.getCookies(), userApiServiceUtils.generateCardDetails(createdUser.getValue("id")));
@@ -158,6 +199,17 @@ public class UserApiTests extends BaseTest {
 //                .shouldHave(statusCode(200))
 //                .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyJson("jsonSchemas/getCardByCardIdSchema.json"));
+    }
+
+    @Test
+    void cannotGetNonexistentCard(){
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        AssertableResponse createdCard = userApiService.createNewCard(createdUser.getCookies(), userApiServiceUtils.generateCardDetails(createdUser.getValue("id")));
+        userApiService.deleteCardByCardId(createdCard.getValue("id"));
+        userApiService.getCardByCardId(createdCard.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("card is not found")));
     }
 
     @Test
@@ -186,6 +238,16 @@ public class UserApiTests extends BaseTest {
     }
 
     @Test
+    void canAddAddressWithoutAddressDetails() {
+        UserPayload userPayload = userApiServiceUtils.generateUserDetails();
+        AssertableResponse createdUser = userApiService.registerUser(userPayload);
+        userApiService.createAddressWithoutAddressDetails(createdUser.getCookies(), userApiServiceUtils.setEmptyAddressPayload())
+                .shouldHave(statusCode(200))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("id", not(isEmptyString())));
+    }
+
+    @Test
     void canGetAllAddresses() {
         AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
         userApiService.createAddress(createdUser.getCookies(), userApiServiceUtils.generateAddressDetails(createdUser.getValue("id")));
@@ -207,6 +269,17 @@ public class UserApiTests extends BaseTest {
 //        assertThat(deletedAddress.asPojo(DeleteAddressResponse.class),is(true));
     }
 
+    @Test
+    void cannotDeleteNonexistentAddress() {
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        AssertableResponse createdAdsress = userApiService.createAddress(createdUser.getCookies(), userApiServiceUtils.generateAddressDetails(createdUser.getValue("id")));
+        userApiService.deleteAddress(createdUser.getCookies(), createdAdsress.getValue("id"));
+        userApiService.deleteAddress(createdUser.getCookies(), createdAdsress.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("Address is not found")));
+    }
+
 
     @Test
     void canGetAddressByAddressId() {
@@ -216,6 +289,17 @@ public class UserApiTests extends BaseTest {
 //                .shouldHave(statusCode(200));
 //                .shouldHave(contentType(ContentType.JSON))
                 .shouldHave(bodyJson("jsonSchemas/getAddressByAddressIdSchema.json"));
+    }
+
+    @Test
+    void cannotGetNonexistentAddressByAddressId(){
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        AssertableResponse createdAddress = userApiService.createAddress(createdUser.getCookies(), userApiServiceUtils.generateAddressDetails(createdUser.getValue("id")));
+        userApiService.deleteAddress(createdUser.getCookies(), createdAddress.getValue("id"));
+        userApiService.getAddressByAddressId(createdUser.getCookies(), createdAddress.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("address is not found")));
     }
 
     @Test
@@ -230,6 +314,17 @@ public class UserApiTests extends BaseTest {
 
         GetCustomerAddressesByCustomerIdResponse addressesByCustomerIdResponse = addressesAssertableResponse.asPojo(GetCustomerAddressesByCustomerIdResponse.class);
         assertThat(addressesByCustomerIdResponse.getEmbedded().getAddress(), hasSize(greaterThanOrEqualTo(1)));
+    }
+
+    @Test
+    void cannotGetAddressByNonexistentCustomerId(){
+        AssertableResponse createdUser = userApiService.registerUser(userApiServiceUtils.generateUserDetails());
+        userApiService.createAddress(createdUser.getCookies(), userApiServiceUtils.generateAddressDetails(createdUser.getValue("id")));
+        userApiService.deletedUser(createdUser.getValue("id"));
+        userApiService.getAddressesByCutomerId(createdUser.getCookies(), createdUser.getValue("id"))
+                .shouldHave(statusCode(404))
+                .shouldHave(contentType(ContentType.JSON))
+                .shouldHave(bodyField("error", is("user is not found")));
     }
 
 

@@ -30,6 +30,14 @@ public class UserApiServiceUtils {
                 .setUserID(userId);
     }
 
+    public CardPayload setEmptyCardDetails(){
+        return cardPayload
+                .setLongNum("")
+                .setExpires("")
+                .setCcv("")
+                .setUserID("");
+    }
+
     public AddressPayload generateAddressDetails(String userId) {
         return addressPayload
                 .setStreet(faker.address().streetName())
@@ -39,6 +47,18 @@ public class UserApiServiceUtils {
                 .setPostcode(faker.address().zipCode())
                 .setUserID(userId);
     }
+
+    public AddressPayload setEmptyAddressPayload(){
+        return addressPayload
+                .setStreet("")
+                .setNumber("")
+                .setCountry("")
+                .setCity("")
+                .setPostcode("")
+                .setUserID("");
+    }
+
+
 
 
 
