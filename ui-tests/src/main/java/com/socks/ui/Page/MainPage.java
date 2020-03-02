@@ -1,6 +1,5 @@
-package com.socks.ui;
+package com.socks.ui.Page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
@@ -40,5 +39,11 @@ public class MainPage {
         $("#register-password-modal").sendKeys(password);
         $("button[onclick='return register()']").click();
     }
+
+    public CataloguePage openCatalogue(){
+        $("#tabCatalogue a[href='category.html']").click();
+        return new CataloguePage();
+    }
+
 
 }

@@ -1,21 +1,24 @@
 package com.socks.ui.tests.tests;
 
+import com.example.utils.UserApiServiceUtils;
+
 import static com.codeborne.selenide.Condition.*;
+
 import com.codeborne.selenide.Condition;
 import com.example.model.UserPayload;
-import com.socks.ui.LoggedUserPage;
-import com.socks.ui.MainPage;
+import com.socks.ui.Page.LoggedUserPage;
+import com.socks.ui.Page.MainPage;
 import org.testng.annotations.Test;
 
 
 public class TestLogin extends BaseUiTest {
-
+    UserApiServiceUtils userApiServiceUtils = new UserApiServiceUtils();
 
     @Test
     public void userCanLoginWithValidCredentials() {
         System.out.println("TestLogin --- " + Thread.currentThread().getId());
 //        given
-        UserPayload userPayload = createNewUser();
+        UserPayload userPayload = userApiServiceUtils.generateUserDetails();
 //        when
         MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
 //        then
@@ -27,7 +30,7 @@ public class TestLogin extends BaseUiTest {
     public void userCanLogout() {
         System.out.println("TestLogin --- " + Thread.currentThread().getId());
         //given
-        UserPayload userPayload = createNewUser();
+        UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
         //when
         at(LoggedUserPage.class).logOut();
@@ -39,7 +42,7 @@ public class TestLogin extends BaseUiTest {
     public void userCannotLoginWithInvalidUsername() {
         System.out.println("TestLogin --- " + Thread.currentThread().getId());
         // given
-        UserPayload userPayload = createNewUser();
+        UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         // when
         MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword());
         // then
@@ -50,7 +53,7 @@ public class TestLogin extends BaseUiTest {
     public void userCannotLoginWithInvalidPassword() {
         System.out.println("TestLogin --- " + Thread.currentThread().getId());
         // given
-        UserPayload userPayload = createNewUser();
+        UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         // when
         MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword() + "1");
         //then

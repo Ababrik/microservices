@@ -1,4 +1,4 @@
-package com.socks.ui;
+package com.socks.ui.Page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;

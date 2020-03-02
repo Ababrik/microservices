@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.internal.filter.SendRequestFilter;
 import io.restassured.specification.RequestSpecification;
 
 
