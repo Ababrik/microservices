@@ -1,7 +1,5 @@
-package com.socks.ui.Page.utils;
+package com.socks.ui.utils;
 
-import com.example.model.UserPayload;
-import com.example.services.UserApiService;
 import com.github.javafaker.Faker;
 
 import java.util.HashMap;

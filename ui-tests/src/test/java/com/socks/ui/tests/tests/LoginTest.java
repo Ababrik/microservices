@@ -1,5 +1,6 @@
 package com.socks.ui.tests.tests;
 
+import com.example.services.UserApiService;
 import com.example.utils.UserApiServiceUtils;
 
 import static com.codeborne.selenide.Condition.*;
@@ -11,16 +12,18 @@ import com.socks.ui.Page.MainPage;
 import org.testng.annotations.Test;
 
 
-public class TestLogin extends BaseUiTest {
+public class LoginTest extends BaseUiTest {
     UserApiServiceUtils userApiServiceUtils = new UserApiServiceUtils();
+    UserApiService userApiService = new UserApiService();
 
     @Test
     public void userCanLoginWithValidCredentials() {
-        System.out.println("TestLogin --- " + Thread.currentThread().getId());
 //        given
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
+        userApiService.registerUser(userPayload);
 //        when
         MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
+//
 //        then
         at(LoggedUserPage.class).gerLogoutButton().shouldHave(text("Logout"));
     }
@@ -28,9 +31,9 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCanLogout() {
-        System.out.println("TestLogin --- " + Thread.currentThread().getId());
         //given
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
+        userApiService.registerUser(userPayload);
         MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
         //when
         at(LoggedUserPage.class).logOut();
@@ -40,9 +43,9 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCannotLoginWithInvalidUsername() {
-        System.out.println("TestLogin --- " + Thread.currentThread().getId());
         // given
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
+        userApiService.registerUser(userPayload);
         // when
         MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword());
         // then
@@ -51,9 +54,9 @@ public class TestLogin extends BaseUiTest {
 
     @Test
     public void userCannotLoginWithInvalidPassword() {
-        System.out.println("TestLogin --- " + Thread.currentThread().getId());
         // given
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
+        userApiService.registerUser(userPayload);
         // when
         MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword() + "1");
         //then

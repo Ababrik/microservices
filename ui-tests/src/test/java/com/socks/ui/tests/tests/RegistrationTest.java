@@ -3,17 +3,17 @@ package com.socks.ui.tests.tests;
 import com.codeborne.selenide.Condition;
 import com.socks.ui.Page.LoggedUserPage;
 import com.socks.ui.Page.MainPage;
-import com.socks.ui.Page.utils.UserDetails;
+import com.socks.ui.utils.UserDetails;
 import org.testng.annotations.Test;
 
 import java.util.Map;
 
-public class TestRegisterUser extends BaseUiTest {
+public class RegistrationTest extends BaseUiTest {
 UserDetails userDetails = new UserDetails();
 
     @Test
     void canRegisterUser() {
-        System.out.println("TestRegisterUser --- " + Thread.currentThread().getId());
+        System.out.println("RegistrationTest --- " + Thread.currentThread().getId());
         //given
         Map<String, String> userCreds = userDetails.generateUserCredentials();
         //when

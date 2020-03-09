@@ -2,18 +2,23 @@
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="com.socks.ui.tests" parallel="classes" thread-count="5">
+<suite name="com.socks.ui.tests" parallel="classes">
 
     <!-- Suite -->
 
-   <test name="Login test">
-       <classes>
-           <class name="com.socks.ui.tests.tests.TestLogin"/>
-       </classes>
-   </test>
-    <test name="Register user test">
+    <test name="Login test">
         <classes>
-            <class name="com.socks.ui.tests.tests.TestRegisterUser"/>
+            <class name="com.socks.ui.tests.tests.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Registration test">
+        <classes>
+            <class name="com.socks.ui.tests.tests.RegistrationTest"/>
+        </classes>
+    </test>
+    <test name="Catalogue test">
+        <classes>
+            <class name="com.socks.ui.tests.tests.CatalogueTest"/>
         </classes>
     </test>
 </suite>

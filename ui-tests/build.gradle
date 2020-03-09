@@ -21,8 +21,8 @@ test {
 }
 
 
-allure {
-    version = '2.5.0'
-    aspectjweaver = true
-    autoconfigure = true
-}
+//allure {
+//    version = '2.5.0'
+//    aspectjweaver = true
+//    autoconfigure = true
+//}
