@@ -5,10 +5,9 @@ import com.example.utils.UserApiServiceUtils;
 
 import static com.codeborne.selenide.Condition.*;
 
-import com.codeborne.selenide.Condition;
 import com.example.model.UserPayload;
 import com.socks.ui.Page.LoggedUserPage;
-import com.socks.ui.Page.MainPage;
+import com.socks.ui.Page.HomePage;
 import org.testng.annotations.Test;
 
 
@@ -22,7 +21,7 @@ public class LoginTest extends BaseUiTest {
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         userApiService.registerUser(userPayload);
 //        when
-        MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
+        HomePage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
 //
 //        then
         at(LoggedUserPage.class).gerLogoutButton().shouldHave(text("Logout"));
@@ -34,11 +33,11 @@ public class LoginTest extends BaseUiTest {
         //given
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         userApiService.registerUser(userPayload);
-        MainPage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
+        HomePage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
         //when
         at(LoggedUserPage.class).logOut();
         //then
-        at(MainPage.class).getLoginLink().shouldHave(Condition.text("Login"));
+        at(HomePage.class).getLoginLink().shouldHave(text("Login"));
     }
 
     @Test
@@ -47,9 +46,9 @@ public class LoginTest extends BaseUiTest {
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         userApiService.registerUser(userPayload);
         // when
-        MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword());
+        HomePage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword());
         // then
-        at(MainPage.class).getAlertInvalidLoginCredentials().shouldHave(Condition.text("Invalid login credentials."));
+        at(HomePage.class).getAlertInvalidLoginCredentials().shouldHave(text("Invalid login credentials."));
     }
 
     @Test
@@ -58,9 +57,9 @@ public class LoginTest extends BaseUiTest {
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         userApiService.registerUser(userPayload);
         // when
-        MainPage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword() + "1");
+        HomePage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword() + "1");
         //then
-        at(MainPage.class).getAlertInvalidLoginCredentials().shouldHave(Condition.text("Invalid login credentials."));
+        at(HomePage.class).getAlertInvalidLoginCredentials().shouldHave(text("Invalid login credentials."));
     }
 
 

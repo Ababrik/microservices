@@ -23,14 +23,15 @@ public class BaseUiTest {
 //        Configuration.driverManagerEnabled = false;
 
         Configuration.baseUrl = "http://51.15.240.40";
-//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
+        //        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
 
     @AfterMethod
     public void cleanCookies() {
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
-        Selenide.refresh();
+        Configuration.holdBrowserOpen=true;
+//        Selenide.refresh();
     }
 
     protected <T> T at(Class<T> pageClass) {

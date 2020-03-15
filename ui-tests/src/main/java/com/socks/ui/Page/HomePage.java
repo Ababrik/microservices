@@ -5,11 +5,11 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class MainPage {
+public class HomePage {
 
-    public static MainPage open() {
+    public static HomePage open() {
         Selenide.open("/");
-        return new MainPage();
+        return new HomePage();
     }
 
 

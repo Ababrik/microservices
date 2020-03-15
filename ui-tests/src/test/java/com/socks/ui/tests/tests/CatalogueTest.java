@@ -1,40 +1,61 @@
 package com.socks.ui.tests.tests;
 
 
-import com.codeborne.selenide.Condition;
-import com.example.services.CatalogueApiService;
+import static com.codeborne.selenide.Condition.*;
 import com.socks.ui.Page.CataloguePage;
-import com.socks.ui.Page.MainPage;
+import com.socks.ui.Page.HomePage;
+import com.socks.ui.Page.ProductPage;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.StringContains.containsString;
 
 public class CatalogueTest extends BaseUiTest {
 
-    CatalogueApiService catalogueApiService = new CatalogueApiService();
 
     @Test
-    void canOpenCataloguePage() {
-        MainPage.open().openCatalogue();
-        assertThat(at(CataloguePage.class).getUrl(), is("http://51.15.240.40/category.html"));
+    void canOpenCataloguePageFromHomePage() {
+        HomePage.open().openCatalogue();
+        assertThat(at(CataloguePage.class).getUrl(), containsString("/category.html"));
     }
 
     @Test
     void canFilterViaSidebarMenu() {
-        MainPage.open().openCatalogue().filterOnSidebarMenu("blue");
-        at(CataloguePage.class).getFilerOption("blue").shouldBe(Condition.checked);
+        CataloguePage.open().filterOnSidebarMenu("blue");
+        at(CataloguePage.class).getFilerOption("blue").shouldBe(checked);
     }
 
     @Test
     void canClearSelectedFilters() {
-        catalogueApiService.getCatalogueWithQueryParameters("red", "sport");
-        MainPage.open().openCatalogue().clearFilters();
-        at(CataloguePage.class).getFilerOption("red").shouldNotBe(Condition.checked);
-        at(CataloguePage.class).getFilerOption("sport").shouldNotBe(Condition.checked);
+        CataloguePage.open().filterOnSidebarMenu("red");
+        at(CataloguePage.class).clearFilters();
+        at(CataloguePage.class).getFilerOption("red").shouldNotBe(checked);
+    }
 
+    @Test
+    void canSetPagination() {
+        CataloguePage.open().setProductsQuantityToDisplay("3");
+        assertThat(at(CataloguePage.class).getAllDisplayedPerPageProducts().size(), is(3));
+    }
+
+    @Test
+    void canSortProducts() {
+        CataloguePage.open().sortProducts("Name");
+        at(CataloguePage.class).getSortOption().shouldBe(selected);
+    }
+
+    @Test
+    void canOpenProductPage() {
+        CataloguePage.open().openProductPage();
+        assertThat(at(ProductPage.class).getUrl(), containsString(("/detail.html?id=")));
+        at(ProductPage.class).getBreadcrumb().shouldBe(visible);
+    }
+
+    @Test
+    void canReturnToCatalogFromProductPageViaBreadcrumb(){
+        CataloguePage.open().openProductPage().returnToCatalogPageViaBreadcrumb();
+        assertThat(at(CataloguePage.class).getUrl(), containsString("/category.html"));
     }
 
 }

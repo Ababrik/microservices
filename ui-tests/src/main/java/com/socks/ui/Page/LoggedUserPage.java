@@ -1,6 +1,6 @@
 package com.socks.ui.Page;
 
-import com.codeborne.selenide.Condition;
+import static com.codeborne.selenide.Condition.*;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
@@ -13,7 +13,7 @@ public class LoggedUserPage {
     }
 
     public void logOut() {
-        $("#logout>a").shouldBe(Condition.visible).click();
+        $("#logout>a").shouldBe(visible).click();
     }
 
     public SelenideElement getLoggedUserLink(String firstname, String lastname){

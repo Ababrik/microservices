@@ -2,7 +2,7 @@ package com.socks.ui.tests.tests;
 
 import com.codeborne.selenide.Condition;
 import com.socks.ui.Page.LoggedUserPage;
-import com.socks.ui.Page.MainPage;
+import com.socks.ui.Page.HomePage;
 import com.socks.ui.utils.UserDetails;
 import org.testng.annotations.Test;
 
@@ -17,7 +17,7 @@ UserDetails userDetails = new UserDetails();
         //given
         Map<String, String> userCreds = userDetails.generateUserCredentials();
         //when
-        MainPage.open().
+        HomePage.open().
                 register(
                         userCreds.get("username"), userCreds.get("firstname"), userCreds.get("lastname"), userCreds.get("email"), userCreds.get("password")
                 );

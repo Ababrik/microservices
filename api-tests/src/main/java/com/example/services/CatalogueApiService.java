@@ -4,18 +4,14 @@ import com.example.assertions.AssertableResponse;
 
 import java.util.ArrayList;
 
+import static java.util.Arrays.asList;
+
+
 public class CatalogueApiService extends ApiService {
 
     public AssertableResponse getCatalogue() {
         return new AssertableResponse(setUp()
                 .when()
-                .get("/catalogue"));
-    }
-
-    public AssertableResponse getCatalogueWithQueryParameters(String parameter1, String parameter2)  {
-        return new AssertableResponse(setUp()
-                .when()
-                .queryParam(String.format("tags", "%s"+"%2C"+"%s", parameter1, parameter2))
                 .get("/catalogue"));
     }
 
