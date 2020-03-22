@@ -1,19 +1,14 @@
 package com.socks.ui.tests.tests;
-
-import com.example.services.UserApiService;
-import com.example.utils.UserApiServiceUtils;
-
 import static com.codeborne.selenide.Condition.*;
 
 import com.example.model.UserPayload;
-import com.socks.ui.Page.LoggedUserPage;
-import com.socks.ui.Page.HomePage;
+import com.socks.ui.page.LoggedUserPage;
+import com.socks.ui.page.HomePage;
 import org.testng.annotations.Test;
 
 
 public class LoginTest extends BaseUiTest {
-    UserApiServiceUtils userApiServiceUtils = new UserApiServiceUtils();
-    UserApiService userApiService = new UserApiService();
+
 
     @Test
     public void userCanLoginWithValidCredentials() {
@@ -24,7 +19,7 @@ public class LoginTest extends BaseUiTest {
         HomePage.open().logIn(userPayload.getUsername(), userPayload.getPassword());
 //
 //        then
-        at(LoggedUserPage.class).gerLogoutButton().shouldHave(text("Logout"));
+        at(LoggedUserPage.class).getLogoutButton().shouldHave(text("Logout"));
     }
 
 
@@ -46,7 +41,7 @@ public class LoginTest extends BaseUiTest {
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         userApiService.registerUser(userPayload);
         // when
-        HomePage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword());
+        HomePage.open().logIn(userPayload.getUsername() + System.currentTimeMillis(), userPayload.getPassword());
         // then
         at(HomePage.class).getAlertInvalidLoginCredentials().shouldHave(text("Invalid login credentials."));
     }
@@ -57,7 +52,7 @@ public class LoginTest extends BaseUiTest {
         UserPayload userPayload = userApiServiceUtils.generateUserDetails();
         userApiService.registerUser(userPayload);
         // when
-        HomePage.open().logIn(userPayload.getUsername() + "1", userPayload.getPassword() + "1");
+        HomePage.open().logIn(userPayload.getUsername(), userPayload.getPassword() + System.currentTimeMillis());
         //then
         at(HomePage.class).getAlertInvalidLoginCredentials().shouldHave(text("Invalid login credentials."));
     }

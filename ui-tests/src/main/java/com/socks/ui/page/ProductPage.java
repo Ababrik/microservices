@@ -1,7 +1,6 @@
-package com.socks.ui.Page;
+package com.socks.ui.page;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideDriver;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 

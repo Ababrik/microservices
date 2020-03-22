@@ -4,6 +4,9 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.example.ProjectConfig;
+import com.example.services.UserApiService;
+import com.example.utils.UserApiServiceUtils;
+import com.socks.ui.utils.UserDetails;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
@@ -12,6 +15,9 @@ import org.testng.annotations.*;
 
 
 public class BaseUiTest {
+    protected UserApiServiceUtils userApiServiceUtils = new UserApiServiceUtils();
+    protected UserApiService userApiService = new UserApiService();
+    protected UserDetails userDetails = new UserDetails();
 
     @BeforeClass
     public void setUp() {
@@ -33,6 +39,8 @@ public class BaseUiTest {
         Configuration.holdBrowserOpen=true;
 //        Selenide.refresh();
     }
+
+
 
     protected <T> T at(Class<T> pageClass) {
         return Selenide.page(pageClass);

@@ -1,8 +1,12 @@
-package com.socks.ui.Page;
+package com.socks.ui.page;
+
+import static com.codeborne.selenide.Condition.*;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.socks.ui.elements.DropdownMenu;
 
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
@@ -30,7 +34,7 @@ public class HomePage {
         return $("#login-message>.alert.alert-danger");
     }
 
-    public void register(String username, String firstName, String lastName, String email, String password){
+    public void register(String username, String firstName, String lastName, String email, String password) {
         $("#register").click();
         $("#register-username-modal").sendKeys(username);
         $("#register-first-modal").sendKeys(firstName);
@@ -40,9 +44,14 @@ public class HomePage {
         $("button[onclick='return register()']").click();
     }
 
-    public CataloguePage openCatalogue(){
+    public CataloguePage openCatalogue() {
         $("#tabCatalogue a[href='category.html']").click();
         return new CataloguePage();
+    }
+
+    public CataloguePage filterCatalogProducts(String option) {
+        DropdownMenu dropdownMenu = new DropdownMenu().open();
+        return dropdownMenu.selectOption(option);
     }
 
 

@@ -1,6 +1,7 @@
-package com.socks.ui.Page;
+package com.socks.ui.page;
 
 import com.codeborne.selenide.*;
+import com.socks.ui.elements.DropdownMenu;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -57,6 +58,12 @@ public class CataloguePage {
     public ProductPage openProductPage(){
         $("a[href^='detail.html?id=']").click();
         return new ProductPage();
+    }
+
+    public CataloguePage filterProductsViaDropdownMenu(String option){
+        DropdownMenu dropdownMenu = new DropdownMenu().open();
+        return dropdownMenu.selectOption(option);
+
     }
 
 

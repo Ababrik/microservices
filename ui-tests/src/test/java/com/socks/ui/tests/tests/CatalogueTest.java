@@ -2,9 +2,10 @@ package com.socks.ui.tests.tests;
 
 
 import static com.codeborne.selenide.Condition.*;
-import com.socks.ui.Page.CataloguePage;
-import com.socks.ui.Page.HomePage;
-import com.socks.ui.Page.ProductPage;
+
+import com.socks.ui.page.CataloguePage;
+import com.socks.ui.page.HomePage;
+import com.socks.ui.page.ProductPage;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,8 +23,8 @@ public class CatalogueTest extends BaseUiTest {
 
     @Test
     void canFilterViaSidebarMenu() {
-        CataloguePage.open().filterOnSidebarMenu("blue");
-        at(CataloguePage.class).getFilerOption("blue").shouldBe(checked);
+        CataloguePage.open().filterOnSidebarMenu("magic");
+        at(CataloguePage.class).getFilerOption("magic").shouldBe(checked);
     }
 
     @Test
@@ -53,9 +54,22 @@ public class CatalogueTest extends BaseUiTest {
     }
 
     @Test
-    void canReturnToCatalogFromProductPageViaBreadcrumb(){
+    void canReturnToCatalogFromProductPageViaBreadcrumb() {
         CataloguePage.open().openProductPage().returnToCatalogPageViaBreadcrumb();
         assertThat(at(CataloguePage.class).getUrl(), containsString("/category.html"));
+    }
+
+    @Test
+    void canFilterViaDropdownMenuFromHomePage() {
+        HomePage.open().filterCatalogProducts("formal");
+        at(CataloguePage.class).getFilerOption("formal").shouldBe(selected);
+    }
+
+    @Test
+    void canFilterViaDropdownMenuFromCataloguePage() {
+        CataloguePage.open().filterProductsViaDropdownMenu("brown")
+                .getFilerOption("brown").shouldBe(selected);
+
     }
 
 }

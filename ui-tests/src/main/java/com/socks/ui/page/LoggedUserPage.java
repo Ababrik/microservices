@@ -1,14 +1,12 @@
-package com.socks.ui.Page;
+package com.socks.ui.page;
 
 import static com.codeborne.selenide.Condition.*;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Selenide.*;
 
 public class LoggedUserPage {
 
-    public SelenideElement gerLogoutButton() {
+    public SelenideElement getLogoutButton() {
         return $("#logout > a");
     }
 
